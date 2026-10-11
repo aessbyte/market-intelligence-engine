@@ -1,0 +1,389 @@
+{
+  "schema_version": "1",
+  "engine_version": "0.1.0",
+  "symbol": "BTCUSDT",
+  "as_of_ms": 1791740973788,
+  "status": "ok",
+  "provenance": {
+    "source": "binance_public",
+    "market": "binance_spot",
+    "simulated": false,
+    "snapshot_sha256": "3a9baa1f9163f6178d1d396b72577ab7f68619d31a43fbe8c0cfd6cefe01eca0",
+    "server_time_ms": 1791740973788,
+    "requested_bars": 250,
+    "endpoint": "https://data-api.binance.vision",
+    "source_claim_verified": false
+  },
+  "configuration": {
+    "rules": {
+      "version": "regime-v1",
+      "trend_gap_atr": 0.5,
+      "trend_slope_atr": 0.05,
+      "bull_rsi": 55.0,
+      "bear_rsi": 45.0,
+      "sideways_gap_atr": 0.5,
+      "sideways_slope_atr": 0.05,
+      "sideways_efficiency": 0.3
+    },
+    "minimum_history": 100,
+    "aggregate_rule": "unanimous_H1_H4_D1"
+  },
+  "timeframes": {
+    "H1": {
+      "interval": "1h",
+      "quality": {
+        "valid": true,
+        "received": 250,
+        "closed": 250,
+        "excluded_unclosed": 0,
+        "errors": [],
+        "first_open_ms": 1790838000000,
+        "last_close_ms": 1791737999999
+      },
+      "indicators": {
+        "close": 83916.01,
+        "sma20": 83135.5295,
+        "ema20": 83196.49932607553,
+        "ema50": 83021.94579104839,
+        "ema20_slope5_atr": 0.17280860059290384,
+        "ema_gap_atr": 0.8213512573825841,
+        "rsi14": 74.8025079296913,
+        "atr14": 212.51995837127168,
+        "atr_percent": 0.2532531734662691,
+        "realized_volatility20": 0.002373757857915209,
+        "bollinger_lower20": 82596.60011748408,
+        "bollinger_upper20": 83674.45888251593,
+        "volume_ratio20": 3.0045129583171866,
+        "obv": -7468.5593499999995,
+        "efficiency20": 0.3920585760575811
+      },
+      "regime": "alta",
+      "evidence": [
+        {
+          "candidate": "alta",
+          "checks": {
+            "close_above_ema20": true,
+            "ema_gap_atr": true,
+            "ema20_slope5_atr": true,
+            "rsi14": true
+          },
+          "matched": true
+        },
+        {
+          "candidate": "baixa",
+          "checks": {
+            "close_below_ema20": false,
+            "ema_gap_atr": false,
+            "ema20_slope5_atr": false,
+            "rsi14": false
+          },
+          "matched": false
+        },
+        {
+          "candidate": "lateralizacao",
+          "checks": {
+            "ema_gap_atr": false,
+            "ema20_slope5_atr": false,
+            "efficiency20": false
+          },
+          "matched": false
+        },
+        {
+          "observed": {
+            "close": 83916.01,
+            "sma20": 83135.5295,
+            "ema20": 83196.49932607553,
+            "ema50": 83021.94579104839,
+            "ema20_slope5_atr": 0.17280860059290384,
+            "ema_gap_atr": 0.8213512573825841,
+            "rsi14": 74.8025079296913,
+            "atr14": 212.51995837127168,
+            "atr_percent": 0.2532531734662691,
+            "realized_volatility20": 0.002373757857915209,
+            "bollinger_lower20": 82596.60011748408,
+            "bollinger_upper20": 83674.45888251593,
+            "volume_ratio20": 3.0045129583171866,
+            "obv": -7468.5593499999995,
+            "efficiency20": 0.3920585760575811
+          },
+          "thresholds": {
+            "version": "regime-v1",
+            "trend_gap_atr": 0.5,
+            "trend_slope_atr": 0.05,
+            "bull_rsi": 55.0,
+            "bear_rsi": 45.0,
+            "sideways_gap_atr": 0.5,
+            "sideways_slope_atr": 0.05,
+            "sideways_efficiency": 0.3
+          }
+        }
+      ],
+      "scenarios": [
+        {
+          "name": "persistencia_descritiva",
+          "current_regime": "alta",
+          "condition": "Novos candles fechados continuam satisfazendo todas as regras atuais.",
+          "invalidation": "Qualquer regra deixa de ser satisfeita; recalcular com dados fechados.",
+          "probability": null,
+          "price_target": null
+        },
+        {
+          "name": "transicao",
+          "condition": "Novos candles fechados satisfazem outro regime.",
+          "invalidation": "As regras do regime alternativo nao sao satisfeitas.",
+          "probability": null,
+          "price_target": null
+        }
+      ]
+    },
+    "H4": {
+      "interval": "4h",
+      "quality": {
+        "valid": true,
+        "received": 250,
+        "closed": 250,
+        "excluded_unclosed": 0,
+        "errors": [],
+        "first_open_ms": 1788134400000,
+        "last_close_ms": 1791734399999
+      },
+      "indicators": {
+        "close": 83908.89,
+        "sma20": 82679.67850000001,
+        "ema20": 83116.79547518135,
+        "ema50": 83573.54229791452,
+        "ema20_slope5_atr": 0.02449533601497028,
+        "ema_gap_atr": -0.7847333112010653,
+        "rsi14": 58.16884334959048,
+        "atr14": 582.0408235685842,
+        "atr_percent": 0.693658113661835,
+        "realized_volatility20": 0.006084934554718218,
+        "bollinger_lower20": 81472.27183415333,
+        "bollinger_upper20": 83887.08516584669,
+        "volume_ratio20": 0.833948027707279,
+        "obv": 44336.49796,
+        "efficiency20": 0.12464836763146972
+      },
+      "regime": "indeterminado",
+      "evidence": [
+        {
+          "candidate": "alta",
+          "checks": {
+            "close_above_ema20": true,
+            "ema_gap_atr": false,
+            "ema20_slope5_atr": false,
+            "rsi14": true
+          },
+          "matched": false
+        },
+        {
+          "candidate": "baixa",
+          "checks": {
+            "close_below_ema20": false,
+            "ema_gap_atr": true,
+            "ema20_slope5_atr": false,
+            "rsi14": false
+          },
+          "matched": false
+        },
+        {
+          "candidate": "lateralizacao",
+          "checks": {
+            "ema_gap_atr": false,
+            "ema20_slope5_atr": true,
+            "efficiency20": true
+          },
+          "matched": false
+        },
+        {
+          "observed": {
+            "close": 83908.89,
+            "sma20": 82679.67850000001,
+            "ema20": 83116.79547518135,
+            "ema50": 83573.54229791452,
+            "ema20_slope5_atr": 0.02449533601497028,
+            "ema_gap_atr": -0.7847333112010653,
+            "rsi14": 58.16884334959048,
+            "atr14": 582.0408235685842,
+            "atr_percent": 0.693658113661835,
+            "realized_volatility20": 0.006084934554718218,
+            "bollinger_lower20": 81472.27183415333,
+            "bollinger_upper20": 83887.08516584669,
+            "volume_ratio20": 0.833948027707279,
+            "obv": 44336.49796,
+            "efficiency20": 0.12464836763146972
+          },
+          "thresholds": {
+            "version": "regime-v1",
+            "trend_gap_atr": 0.5,
+            "trend_slope_atr": 0.05,
+            "bull_rsi": 55.0,
+            "bear_rsi": 45.0,
+            "sideways_gap_atr": 0.5,
+            "sideways_slope_atr": 0.05,
+            "sideways_efficiency": 0.3
+          }
+        }
+      ],
+      "scenarios": [
+        {
+          "name": "persistencia_descritiva",
+          "current_regime": "indeterminado",
+          "condition": "Novos candles fechados continuam satisfazendo todas as regras atuais.",
+          "invalidation": "Qualquer regra deixa de ser satisfeita; recalcular com dados fechados.",
+          "probability": null,
+          "price_target": null
+        },
+        {
+          "name": "transicao",
+          "condition": "Novos candles fechados satisfazem outro regime.",
+          "invalidation": "As regras do regime alternativo nao sao satisfeitas.",
+          "probability": null,
+          "price_target": null
+        }
+      ]
+    },
+    "D1": {
+      "interval": "1d",
+      "quality": {
+        "valid": true,
+        "received": 250,
+        "closed": 250,
+        "excluded_unclosed": 0,
+        "errors": [],
+        "first_open_ms": 1770076800000,
+        "last_close_ms": 1791676799999
+      },
+      "indicators": {
+        "close": 82988.36,
+        "sma20": 84406.36750000001,
+        "ema20": 83246.67743752491,
+        "ema50": 79899.82687265235,
+        "ema20_slope5_atr": -0.006438595565004146,
+        "ema_gap_atr": 1.5814107182454649,
+        "rsi14": 51.70412274699276,
+        "atr14": 2116.3702296047422,
+        "atr_percent": 2.550201292813525,
+        "realized_volatility20": 0.018412588829672942,
+        "bollinger_lower20": 81891.84004679632,
+        "bollinger_upper20": 86920.8949532037,
+        "volume_ratio20": 0.44327686460761767,
+        "obv": -224194.98752,
+        "efficiency20": 0.09441281172196622
+      },
+      "regime": "indeterminado",
+      "evidence": [
+        {
+          "candidate": "alta",
+          "checks": {
+            "close_above_ema20": false,
+            "ema_gap_atr": true,
+            "ema20_slope5_atr": false,
+            "rsi14": false
+          },
+          "matched": false
+        },
+        {
+          "candidate": "baixa",
+          "checks": {
+            "close_below_ema20": true,
+            "ema_gap_atr": false,
+            "ema20_slope5_atr": false,
+            "rsi14": false
+          },
+          "matched": false
+        },
+        {
+          "candidate": "lateralizacao",
+          "checks": {
+            "ema_gap_atr": false,
+            "ema20_slope5_atr": true,
+            "efficiency20": true
+          },
+          "matched": false
+        },
+        {
+          "observed": {
+            "close": 82988.36,
+            "sma20": 84406.36750000001,
+            "ema20": 83246.67743752491,
+            "ema50": 79899.82687265235,
+            "ema20_slope5_atr": -0.006438595565004146,
+            "ema_gap_atr": 1.5814107182454649,
+            "rsi14": 51.70412274699276,
+            "atr14": 2116.3702296047422,
+            "atr_percent": 2.550201292813525,
+            "realized_volatility20": 0.018412588829672942,
+            "bollinger_lower20": 81891.84004679632,
+            "bollinger_upper20": 86920.8949532037,
+            "volume_ratio20": 0.44327686460761767,
+            "obv": -224194.98752,
+            "efficiency20": 0.09441281172196622
+          },
+          "thresholds": {
+            "version": "regime-v1",
+            "trend_gap_atr": 0.5,
+            "trend_slope_atr": 0.05,
+            "bull_rsi": 55.0,
+            "bear_rsi": 45.0,
+            "sideways_gap_atr": 0.5,
+            "sideways_slope_atr": 0.05,
+            "sideways_efficiency": 0.3
+          }
+        }
+      ],
+      "scenarios": [
+        {
+          "name": "persistencia_descritiva",
+          "current_regime": "indeterminado",
+          "condition": "Novos candles fechados continuam satisfazendo todas as regras atuais.",
+          "invalidation": "Qualquer regra deixa de ser satisfeita; recalcular com dados fechados.",
+          "probability": null,
+          "price_target": null
+        },
+        {
+          "name": "transicao",
+          "condition": "Novos candles fechados satisfazem outro regime.",
+          "invalidation": "As regras do regime alternativo nao sao satisfeitas.",
+          "probability": null,
+          "price_target": null
+        }
+      ]
+    }
+  },
+  "regime": "indeterminado",
+  "evidence": [
+    {
+      "rule": "unanimous_H1_H4_D1",
+      "observed": [
+        "alta",
+        "indeterminado",
+        "indeterminado"
+      ]
+    }
+  ],
+  "limitations": [
+    "Regras heuristicas descritivas; sem calibracao, probabilidades ou vantagem estatistica demonstrada.",
+    "OHLCV spot Binance nao representa outras corretoras, livro de ofertas ou fluxo de ordens.",
+    "EMA, RSI e ATR dependem da janela e das sementes; nao equivalem a historico infinito.",
+    "Cenarios condicionais nao sao previsoes nem recomendacoes de negociacao.",
+    "Candles historicos podem ser revisados pela fonte; replay reproduz o snapshot, nao a disponibilidade historica."
+  ],
+  "scenarios": [
+    {
+      "name": "persistencia_descritiva",
+      "current_regime": "indeterminado",
+      "condition": "Novos candles fechados continuam satisfazendo todas as regras atuais.",
+      "invalidation": "Qualquer regra deixa de ser satisfeita; recalcular com dados fechados.",
+      "probability": null,
+      "price_target": null
+    },
+    {
+      "name": "transicao",
+      "condition": "Novos candles fechados satisfazem outro regime.",
+      "invalidation": "As regras do regime alternativo nao sao satisfeitas.",
+      "probability": null,
+      "price_target": null
+    }
+  ]
+}

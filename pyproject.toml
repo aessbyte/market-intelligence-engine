@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "market-intelligence-engine"
+version = "0.1.0"
+description = "Auditable, deterministic analysis of public Binance spot OHLCV"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["ruff==0.11.13", "mypy==1.15.0", "jsonschema==4.26.0"]
+
+[project.scripts]
+market-intelligence = "market_intelligence.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+market_intelligence = ["py.typed", "result.schema.json"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+
