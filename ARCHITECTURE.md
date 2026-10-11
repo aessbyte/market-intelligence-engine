@@ -1,4 +1,7 @@
-# Decisões arquiteturais — Etapa 1
+# Decisões arquiteturais — Etapas 1 e 2
+
+ADR 001–007 registram a fundação original. ADR 008–010 ampliam essa fundação na
+Task 02; os módulos de estrutura/Wyckoff antes futuros agora têm implementação.
 
 ## Fluxo e limites
 
@@ -116,3 +119,49 @@ garantia contra revisões da Binance, calendário de incidentes, cache persisten
 WebSocket ou agendamento. Prefixos históricos testam causalidade das fórmulas, não
 disponibilidade histórica real. Esses limites precisam ser resolvidos antes de afirmar
 validade de um backtest ou vantagem estatística.
+
+## ADR 008 — Eventos causais e separação de módulos
+
+`events.py`: evento imutável e transições append-only. `structure.py`: pivôs,
+relações e rompimentos. `wyckoff.py`: faixa congelada, observações de preço,
+interpretações condicionais e filtros de liquidez. `multitimeframe.py`: concordâncias
+e conflitos sem timeframe privilegiado. `scenarios.py`: três teses condicionais.
+`config.py`: configuração validada e serializada. `render.py`: apresentação textual.
+Não foi criado outro cliente, validator ou calculador de indicadores.
+
+O engine fornece os candles já validados aos módulos puros; módulos também reutilizam
+o validator nas chamadas diretas. Nenhum busca rede ou relógio. Estados mutáveis de
+faixa/sinal existem apenas dentro de uma execução sequencial; não vazam entre chamadas.
+Eventos são dataclasses congeladas; seus dicionários de evidência não são alterados.
+
+O timestamp do gráfico não é a disponibilidade da confirmação. Diário conserva
+todas as revisões, enquanto events materializa a revisão atual. Testes de todos
+os prefixos verificam igualdade entre diário parcial e diário integral filtrado.
+Regras, inclusive empate, buffers, invalidação e liquidez, em TASK02_RULES.md.
+
+## ADR 009 — Contratos e compatibilidade
+
+Motor 0.2.0, resultado padrão schema v2, snapshot permanece v1. Chaves de
+indicadores/regime v1 preservadas. Novos campos structure/wyckoff por intervalo,
+multitimeframe global e três cenários. `result_version=1`/`--schema-version 1`
+reproduzem exatamente o resultado original, inclusive versão legada 0.1.0 e
+cenários antigos. `result-v1.schema.json` conserva o contrato anterior.
+
+Schema v2 obriga campos auditáveis e proíbe probabilidade/alvo/retorno inventados.
+Não há campo de score disfarçado de probabilidade. Configuration registra todos
+os limiares; versões desconhecidas de regra são rejeitadas. Fonte e hash do snapshot
+continuam explícitos; JSON importado não é autenticado pelo hash.
+
+## ADR 010 — Cenários e limites do modelo de regras
+
+Regime por indicadores e estrutura são leituras separadas. D1/H4/H1 recebem papéis
+contextuais, sem assumir que o maior está correto. Cenário ativo significa condições
+operacionais satisfeitas; não estimativa de retorno. Evidência contrária permanece
+visível, e invalidações têm níveis ou condições verificáveis. Sem dados íntegros e
+liquidez recente suficiente, cenário fica aguardando confirmação.
+
+Faixas são candidatas de OHLCV, não identificação de inventário institucional.
+Hipóteses Wyckoff nunca atribuem fase A–E. A versão atual não reconstrói ordem intrabar,
+livro/fluxo, nested ranges, microestrutura ou confirmação intercorretoras. Retestes
+direcionais têm uma emissão por tipo/faixa. Isso deve ser validado e ampliado antes
+de treinar modelos quantitativos sobre os eventos.

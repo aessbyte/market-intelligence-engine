@@ -1,0 +1,94 @@
+BTCUSDT | 2026-10-11T18:33:48.435000+00:00
+Origem: binance_public | status: ok
+Regime de indicadores: indeterminado
+D1: regime indeterminado | estrutura baixa
+  Niveis: resistance=87395.67, resistance=87220, resistance=86999.11, support=82874.93, support=82563, support=80393.56
+  false_break: confirmado por regra | preco 76046.58 | grafico 2026-09-16T00:00:00+00:00 | detectado 2026-09-17T00:00:00+00:00 | disponivel 2026-09-17T00:00:00+00:00
+  CHoCH: confirmado por regra | preco 79600 | grafico 2026-09-18T00:00:00+00:00 | detectado 2026-09-19T00:00:00+00:00 | disponivel 2026-09-20T00:00:00+00:00
+  BOS: invalidado | preco 82563 | grafico 2026-10-08T00:00:00+00:00 | detectado 2026-10-09T00:00:00+00:00 | disponivel 2026-10-10T00:00:00+00:00
+  false_break: confirmado por regra | preco 82563 | grafico 2026-10-09T00:00:00+00:00 | detectado 2026-10-10T00:00:00+00:00 | disponivel 2026-10-10T00:00:00+00:00
+  Faixa: evidencia insuficiente
+  Possivel Upthrust: invalidado | grafico 2026-04-18T00:00:00+00:00; fase nao estabelecida
+    Observacao: minimo 75445.16, maximo 77420.08, fechamento 75691.76; faixa 65000–76000
+  Possivel SOW: invalidado | grafico 2026-06-03T00:00:00+00:00; fase nao estabelecida
+    Observacao: minimo 64092.49, maximo 67516, fechamento 64142.75; faixa 65000–76000
+  Possivel LPSY: invalidado | grafico 2026-06-07T00:00:00+00:00; fase nao estabelecida
+    Observacao: minimo 60746, maximo 64234.68, fechamento 63332.01; faixa 65000–76000
+  Possivel Spring: invalidado | grafico 2026-06-14T00:00:00+00:00; fase nao estabelecida
+    Observacao: minimo 63678.83, maximo 65800, fechamento 65746.45; faixa 65000–76000
+  Possivel SOS: confirmado por regra | grafico 2026-08-19T00:00:00+00:00; fase nao estabelecida
+    Observacao: minimo 64166, maximo 70000, fechamento 69334.79; faixa 57800.19–66956.15
+  Avisos de liquidez observada: 1
+H4: regime indeterminado | estrutura lateralizacao
+  Niveis: resistance=86698.99, resistance=83528.98, resistance=83173.29, support=80393.56, support=82285.71, support=82804.65
+  BOS: confirmado por regra | preco 85037.63 | grafico 2026-10-04T08:00:00+00:00 | detectado 2026-10-04T12:00:00+00:00 | disponivel 2026-10-04T16:00:00+00:00
+  BOS: confirmado por regra | preco 85136.11 | grafico 2026-10-07T00:00:00+00:00 | detectado 2026-10-07T04:00:00+00:00 | disponivel 2026-10-07T08:00:00+00:00
+  BOS: confirmado por regra | preco 82787.25 | grafico 2026-10-08T08:00:00+00:00 | detectado 2026-10-08T12:00:00+00:00 | disponivel 2026-10-08T16:00:00+00:00
+  BOS: candidato | preco 83173.29 | grafico 2026-10-11T12:00:00+00:00 | detectado 2026-10-11T16:00:00+00:00 | disponivel 2026-10-11T16:00:00+00:00
+  Faixa: 82874.93–87395.67 (confirmado por regra)
+  Possivel SOS: invalidado | grafico 2026-09-18T12:00:00+00:00; fase nao estabelecida
+    Observacao: minimo 77972.3, maximo 81154.67, fechamento 80725.6; faixa 76464–80559.99
+  Possivel LPS: confirmado por regra | grafico 2026-09-18T20:00:00+00:00; fase nao estabelecida
+    Observacao: minimo 80862.61, maximo 81370.57, fechamento 80883.87; faixa 76464–80559.99
+  Possivel Upthrust: invalidado | grafico 2026-09-20T00:00:00+00:00; fase nao estabelecida
+    Observacao: minimo 80126.04, maximo 81330.01, fechamento 80486.38; faixa 76464–80559.99
+  Possivel Spring: confirmado por regra | grafico 2026-09-28T08:00:00+00:00; fase nao estabelecida
+    Observacao: minimo 82597.55, maximo 83160.33, fechamento 83082.54; faixa 82874.93–87395.67
+  Possivel SOW: invalidado | grafico 2026-10-08T00:00:00+00:00; fase nao estabelecida
+    Observacao: minimo 82650, maximo 83521.15, fechamento 82757; faixa 82874.93–87395.67
+  Avisos de liquidez observada: 1
+H1: regime alta | estrutura lateralizacao
+  Niveis: resistance=83150.61, resistance=83234, resistance=83258.65, support=82804.65, support=82975.37, support=83026.05
+  BOS: confirmado por regra | preco 82951.88 | grafico 2026-10-10T15:00:00+00:00 | detectado 2026-10-10T16:00:00+00:00 | disponivel 2026-10-10T21:00:00+00:00
+  BOS: invalidado | preco 82932.01 | grafico 2026-10-11T03:00:00+00:00 | detectado 2026-10-11T04:00:00+00:00 | disponivel 2026-10-11T05:00:00+00:00
+  false_break: confirmado por regra | preco 82932.01 | grafico 2026-10-11T04:00:00+00:00 | detectado 2026-10-11T05:00:00+00:00 | disponivel 2026-10-11T05:00:00+00:00
+  BOS: confirmado por regra | preco 83258.65 | grafico 2026-10-11T15:00:00+00:00 | detectado 2026-10-11T16:00:00+00:00 | disponivel 2026-10-11T17:00:00+00:00
+  Faixa: 83186–87220 (confirmado por regra)
+  Possivel Spring: invalidado | grafico 2026-10-07T13:00:00+00:00; fase nao estabelecida
+    Observacao: minimo 82787.25, maximo 83552.01, fechamento 83192.01; faixa 83186–87220
+  Possivel SOW: invalidado | grafico 2026-10-07T14:00:00+00:00; fase nao estabelecida
+    Observacao: minimo 82921.9, maximo 83309.14, fechamento 83010.45; faixa 83186–87220
+  Avisos de liquidez observada: 1
+Consenso estrutural: indeterminado
+Conflito: D1 / H4: baixa / lateralizacao
+Conflito: D1 / H1: baixa / lateralizacao
+Cenario bullish: aguardando confirmacao
+  Tese: Continuidade ou desenvolvimento de estrutura ascendente com confirmacao em candles fechados.
+  Favoravel: H1: BOS confirmado em 2026-10-11T17:00:00+00:00
+  Contraria: D1: estrutura baixa; fechamento 82988.36
+  Ativacao: estrutura direcional em pelo menos dois intervalos — nao satisfeita; observado: 0; necessario: 2
+  Ativacao: nenhum intervalo com estrutura oposta — nao satisfeita; observado: 1
+  Ativacao: evento direcional confirmado recente — satisfeita
+  Ativacao: nivel de invalidacao H1 conhecido e preservado — satisfeita; nivel: 83026.05
+  Ativacao: tres intervalos disponiveis e liquidez recente suficiente — satisfeita
+  Invalidacao: estrutura oposta em pelo menos dois intervalos — nao satisfeita; observado: 1
+  Invalidacao: fechamento H1 abaixo do suporte — nao satisfeita; nivel: 83026.05
+Cenario bearish: invalidado
+  Tese: Continuidade ou desenvolvimento de estrutura descendente com confirmacao em candles fechados.
+  Favoravel: D1: estrutura baixa; fechamento 82988.36
+  Contraria: H1: BOS confirmado em 2026-10-11T17:00:00+00:00
+  Ativacao: estrutura direcional em pelo menos dois intervalos — nao satisfeita; observado: 1; necessario: 2
+  Ativacao: nenhum intervalo com estrutura oposta — satisfeita; observado: 0
+  Ativacao: evento direcional confirmado recente — nao satisfeita
+  Ativacao: nivel de invalidacao H1 conhecido e preservado — nao satisfeita; nivel: 83258.65
+  Ativacao: tres intervalos disponiveis e liquidez recente suficiente — satisfeita
+  Invalidacao: estrutura oposta em pelo menos dois intervalos — nao satisfeita; observado: 0
+  Invalidacao: fechamento H1 acima da resistencia — satisfeita; nivel: 83258.65
+Cenario neutral: ativo
+  Tese: Persistencia de faixas confirmadas, sem concordancia direcional suficiente.
+  Favoravel: H4: fechamento dentro da faixa 82874.93–87395.67
+  Favoravel: H1: fechamento dentro da faixa 83186–87220
+  Contraria: D1: estrutura baixa; fechamento 82988.36
+  Ativacao: preco dentro de faixas confirmadas em dois intervalos — satisfeita; observado: 2; necessario: 2
+  Ativacao: ausencia de concordancia direcional em dois intervalos — satisfeita
+  Ativacao: tres intervalos disponiveis e liquidez recente suficiente — satisfeita
+  Invalidacao: ativacao de cenario direcional — nao satisfeita
+  Invalidacao: rompimento confirmado de faixa em dois intervalos — nao satisfeita
+Probabilidades e retornos esperados: indisponiveis; modelo estatistico nao validado.
+Limitacao: Regras heuristicas descritivas; sem calibracao, probabilidades ou vantagem estatistica demonstrada.
+Limitacao: OHLCV spot Binance nao representa outras corretoras, livro de ofertas ou fluxo de ordens.
+Limitacao: EMA, RSI e ATR dependem da janela e das sementes; nao equivalem a historico infinito.
+Limitacao: Cenarios condicionais nao sao previsoes nem recomendacoes de negociacao.
+Limitacao: Candles historicos podem ser revisados pela fonte; replay reproduz o snapshot, nao a disponibilidade historica.
+Limitacao: Pivos e eventos confirmados significam regras satisfeitas, nao certeza de fase Wyckoff.
+Limitacao: Liquidez observada em OHLCV nao mede profundidade de livro ou capacidade de execucao.

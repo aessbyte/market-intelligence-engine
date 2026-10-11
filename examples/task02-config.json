@@ -1,0 +1,32 @@
+{
+  "structure": {
+    "version": "structure-v1",
+    "left_bars": 2,
+    "right_bars": 2,
+    "equality_tolerance": 0.001,
+    "break_buffer": 0.001,
+    "confirmation_closes": 2,
+    "false_break_window": 5
+  },
+  "wyckoff": {
+    "version": "wyckoff-v1",
+    "range_lookback": 40,
+    "min_touches": 2,
+    "touch_tolerance": 0.1,
+    "min_width_fraction": 0.003,
+    "max_width_fraction": 0.25,
+    "max_efficiency": 0.35,
+    "min_inside_fraction": 0.8,
+    "range_confirmation_closes": 2,
+    "break_buffer_width": 0.02,
+    "signal_window": 8,
+    "retest_window": 12,
+    "strength_volume_ratio": 1.2,
+    "confirmation_volume_ratio": 0.8,
+    "min_body_fraction": 0.5,
+    "min_liquid_fraction": 0.8,
+    "low_volume_ratio": 0.1,
+    "min_quote_volume": 0.0
+  },
+  "scenario_freshness_bars": 12
+}

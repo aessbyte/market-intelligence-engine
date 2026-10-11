@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "market-intelligence-engine"
-version = "0.1.0"
+version = "0.2.0"
 description = "Auditable, deterministic analysis of public Binance spot OHLCV"
 requires-python = ">=3.11"
 license = "MIT"
@@ -20,7 +20,7 @@ market-intelligence = "market_intelligence.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-market_intelligence = ["py.typed", "result.schema.json"]
+market_intelligence = ["py.typed", "*.schema.json"]
 
 [tool.ruff]
 line-length = 100

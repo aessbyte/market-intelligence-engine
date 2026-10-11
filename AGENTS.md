@@ -4,7 +4,9 @@
 
 Python 3.11+, arquitetura em `src/market_intelligence`, testes em `tests`.
 Não implementar execução de ordens, endpoints privados, GUI definitiva ou previsões
-sem evidência no escopo da Etapa 1. Preservar licença MIT e privacidade do repositório.
+sem evidência. Etapas 1 e 2: preservar licença MIT e privacidade do repositório.
+Antes de ampliar o motor, ler documentação e código e executar a suíte existente;
+não considerar uma capacidade implementada apenas porque está no README.
 
 ## Regras
 
@@ -34,7 +36,7 @@ Testes são offline; chamadas live devem ser explícitas e separadas dos unitár
 Para validar a demonstração sem rede:
 
 ```bash
-market-intelligence replay examples/btc-snapshot.json --output /tmp/replay.json
+market-intelligence replay examples/btc-snapshot.json --schema-version 1 --output /tmp/replay.json
 python -c 'import json; assert json.load(open("/tmp/replay.json")) == json.load(open("examples/btc-analysis.json"))'
 ```
 
@@ -49,3 +51,10 @@ independentes, sem apenas copiar a implementação para o teste.
 
 Ruff verifica e formata `src` e `tests`; mypy strict verifica `src`. O uso de `Any`
 na fronteira JSON é deliberado; valide tipos antes de convertê-los ao domínio.
+
+Task 02: preservar event_journal append-only; alterações de estado só ficam visíveis
+em available_at_ms, com confirmação de pivôs depois dos candles à direita.
+Testar causalidade em cada prefixo e comparar diários filtrados por disponibilidade.
+Wyckoff confirmado por regra não autoriza afirmar fases ou inventário institucional.
+Probabilidades/retornos permanecem null até existir modelo/calibração versionados.
+Manter replay legado v1 e os exemplos Task 02 (reais e simulados claramente separados).

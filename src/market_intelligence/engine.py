@@ -8,10 +8,15 @@ from typing import Any
 
 from . import __version__
 from .binance import normalize_symbol
+from .config import AnalysisConfig
 from .indicators import calculate
 from .models import Interval, MarketError, Regime
+from .multitimeframe import compare_timeframes
 from .regime import RULES, aggregate, classify, scenarios
 from .validation import parse_klines, validate
+from .scenarios import build_scenarios
+from .structure import analyze_structure
+from .wyckoff import analyze_wyckoff
 
 LIMITATIONS = [
     "Regras heuristicas descritivas; sem calibracao, probabilidades ou vantagem estatistica demonstrada.",
@@ -28,7 +33,12 @@ def canonical_json(value: Any) -> str:
     )
 
 
-def analyze(snapshot: dict[str, Any]) -> dict[str, Any]:
+def analyze(
+    snapshot: dict[str, Any], config: AnalysisConfig | None = None, result_version: int = 2
+) -> dict[str, Any]:
+    if result_version not in (1, 2):
+        raise MarketError("Unsupported result version")
+    config = config if config is not None else AnalysisConfig()
     try:
         if snapshot.get("snapshot_version") != "1":
             raise MarketError("Unsupported snapshot version")
@@ -109,12 +119,21 @@ def analyze(snapshot: dict[str, Any]) -> dict[str, Any]:
             "evidence": evidence,
             "scenarios": scenarios(regime),
         }
+        if result_version == 2:
+            frames[interval.name]["structure"] = None
+            frames[interval.name]["wyckoff"] = None
+            if quality_json["valid"]:
+                structural = analyze_structure(closed, interval, cutoff, config.structure)
+                frames[interval.name]["structure"] = structural
+                frames[interval.name]["wyckoff"] = analyze_wyckoff(
+                    closed, interval, cutoff, structural, config.wyckoff
+                )
         regimes.append(regime)
     overall = aggregate(regimes)
     valid = all(f["quality"]["valid"] for f in frames.values())
-    return {
-        "schema_version": "1",
-        "engine_version": __version__,
+    result: dict[str, Any] = {
+        "schema_version": str(result_version),
+        "engine_version": __version__ if result_version == 2 else "0.1.0",
         "symbol": symbol,
         "as_of_ms": cutoff,
         "status": "ok" if valid else "degraded",
@@ -140,3 +159,15 @@ def analyze(snapshot: dict[str, Any]) -> dict[str, Any]:
         + (["Dados simulados: nenhum preco real foi observado."] if source == "simulated" else []),
         "scenarios": scenarios(overall),
     }
+    if result_version == 2:
+        comparison = compare_timeframes(frames, cutoff)
+        result["multitimeframe"] = comparison
+        result["scenarios"] = build_scenarios(
+            frames, comparison, cutoff, config.scenario_freshness_bars
+        )
+        result["configuration"]["analysis"] = asdict(config)
+        result["limitations"] += [
+            "Pivos e eventos confirmados significam regras satisfeitas, nao certeza de fase Wyckoff.",
+            "Liquidez observada em OHLCV nao mede profundidade de livro ou capacidade de execucao.",
+        ]
+    return result

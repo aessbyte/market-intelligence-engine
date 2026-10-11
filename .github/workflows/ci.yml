@@ -19,5 +19,9 @@ jobs:
       - run: ruff format --check src tests
       - run: mypy src
       - run: |
-          market-intelligence replay examples/btc-snapshot.json --output /tmp/replay.json
+          market-intelligence replay examples/btc-snapshot.json --schema-version 1 --output /tmp/replay.json
           python -c 'import json; assert json.load(open("/tmp/replay.json")) == json.load(open("examples/btc-analysis.json"))'
+          market-intelligence replay examples/task02-btc-snapshot.json --output /tmp/task02.json
+          python -c 'import json; assert json.load(open("/tmp/task02.json")) == json.load(open("examples/task02-btc-analysis.json"))'
+          market-intelligence replay examples/task02-synthetic-snapshot.json --output /tmp/synthetic.json
+          python -c 'import json; assert json.load(open("/tmp/synthetic.json")) == json.load(open("examples/task02-synthetic-analysis.json"))'

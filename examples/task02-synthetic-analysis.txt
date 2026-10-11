@@ -1,0 +1,88 @@
+BTCUSDT | 1972-09-27T00:00:00+00:00
+Origem: simulated | status: ok
+Regime de indicadores: indeterminado
+D1: regime indeterminado | estrutura lateralizacao
+  Niveis: resistance=105, resistance=105, resistance=105, support=95, support=95, support=95
+  BOS: confirmado por regra | preco 105 | grafico 1972-09-23T00:00:00+00:00 | detectado 1972-09-24T00:00:00+00:00 | disponivel 1972-09-25T00:00:00+00:00
+  Faixa: 95–105 (invalidado)
+  Possivel SOS: confirmado por regra | grafico 1972-09-23T00:00:00+00:00; fase nao estabelecida
+    Observacao: minimo 103, maximo 109, fechamento 108; faixa 95–105
+  Possivel LPS: confirmado por regra | grafico 1972-09-25T00:00:00+00:00; fase nao estabelecida
+    Observacao: minimo 104.5, maximo 108, fechamento 106; faixa 95–105
+  Hipotese: accumulation (candidate)
+  Avisos de liquidez observada: 1
+H4: regime indeterminado | estrutura lateralizacao
+  Niveis: resistance=105, resistance=105, resistance=105, support=95, support=95, support=95
+  BOS: confirmado por regra | preco 105 | grafico 1972-09-26T08:00:00+00:00 | detectado 1972-09-26T12:00:00+00:00 | disponivel 1972-09-26T16:00:00+00:00
+  Faixa: 95–105 (invalidado)
+  Possivel SOS: confirmado por regra | grafico 1972-09-26T08:00:00+00:00; fase nao estabelecida
+    Observacao: minimo 103, maximo 109, fechamento 108; faixa 95–105
+  Possivel LPS: confirmado por regra | grafico 1972-09-26T16:00:00+00:00; fase nao estabelecida
+    Observacao: minimo 104.5, maximo 108, fechamento 106; faixa 95–105
+  Hipotese: accumulation (candidate)
+  Avisos de liquidez observada: 1
+H1: regime indeterminado | estrutura lateralizacao
+  Niveis: resistance=105, resistance=105, resistance=105, support=95, support=95, support=95
+  BOS: confirmado por regra | preco 105 | grafico 1972-09-26T20:00:00+00:00 | detectado 1972-09-26T21:00:00+00:00 | disponivel 1972-09-26T22:00:00+00:00
+  Faixa: 95–105 (invalidado)
+  Possivel SOS: confirmado por regra | grafico 1972-09-26T20:00:00+00:00; fase nao estabelecida
+    Observacao: minimo 103, maximo 109, fechamento 108; faixa 95–105
+  Possivel LPS: confirmado por regra | grafico 1972-09-26T22:00:00+00:00; fase nao estabelecida
+    Observacao: minimo 104.5, maximo 108, fechamento 106; faixa 95–105
+  Hipotese: accumulation (candidate)
+  Avisos de liquidez observada: 1
+Consenso estrutural: lateralizacao
+Cenario bullish: aguardando confirmacao
+  Tese: Continuidade ou desenvolvimento de estrutura ascendente com confirmacao em candles fechados.
+  Favoravel: D1: BOS confirmado em 1972-09-25T00:00:00+00:00
+  Favoravel: D1: SOS confirmado em 1972-09-25T00:00:00+00:00
+  Favoravel: D1: LPS confirmado em 1972-09-27T00:00:00+00:00
+  Favoravel: H4: BOS confirmado em 1972-09-26T16:00:00+00:00
+  Favoravel: H4: SOS confirmado em 1972-09-26T16:00:00+00:00
+  Favoravel: H4: LPS confirmado em 1972-09-27T00:00:00+00:00
+  Favoravel: H1: BOS confirmado em 1972-09-26T22:00:00+00:00
+  Favoravel: H1: SOS confirmado em 1972-09-26T22:00:00+00:00
+  Favoravel: H1: LPS confirmado em 1972-09-27T00:00:00+00:00
+  Ativacao: estrutura direcional em pelo menos dois intervalos — nao satisfeita; observado: 0; necessario: 2
+  Ativacao: nenhum intervalo com estrutura oposta — satisfeita; observado: 0
+  Ativacao: evento direcional confirmado recente — satisfeita
+  Ativacao: nivel de invalidacao H1 conhecido e preservado — satisfeita; nivel: 95
+  Ativacao: tres intervalos disponiveis e liquidez recente suficiente — satisfeita
+  Invalidacao: estrutura oposta em pelo menos dois intervalos — nao satisfeita; observado: 0
+  Invalidacao: fechamento H1 abaixo do suporte — nao satisfeita; nivel: 95
+Cenario bearish: invalidado
+  Tese: Continuidade ou desenvolvimento de estrutura descendente com confirmacao em candles fechados.
+  Contraria: D1: BOS confirmado em 1972-09-25T00:00:00+00:00
+  Contraria: D1: SOS confirmado em 1972-09-25T00:00:00+00:00
+  Contraria: D1: LPS confirmado em 1972-09-27T00:00:00+00:00
+  Contraria: H4: BOS confirmado em 1972-09-26T16:00:00+00:00
+  Contraria: H4: SOS confirmado em 1972-09-26T16:00:00+00:00
+  Contraria: H4: LPS confirmado em 1972-09-27T00:00:00+00:00
+  Contraria: H1: BOS confirmado em 1972-09-26T22:00:00+00:00
+  Contraria: H1: SOS confirmado em 1972-09-26T22:00:00+00:00
+  Contraria: H1: LPS confirmado em 1972-09-27T00:00:00+00:00
+  Ativacao: estrutura direcional em pelo menos dois intervalos — nao satisfeita; observado: 0; necessario: 2
+  Ativacao: nenhum intervalo com estrutura oposta — satisfeita; observado: 0
+  Ativacao: evento direcional confirmado recente — nao satisfeita
+  Ativacao: nivel de invalidacao H1 conhecido e preservado — nao satisfeita; nivel: 105
+  Ativacao: tres intervalos disponiveis e liquidez recente suficiente — satisfeita
+  Invalidacao: estrutura oposta em pelo menos dois intervalos — nao satisfeita; observado: 0
+  Invalidacao: fechamento H1 acima da resistencia — satisfeita; nivel: 105
+  Dados insuficientes: no_supporting_structure_or_confirmed_event
+Cenario neutral: invalidado
+  Tese: Persistencia de faixas confirmadas, sem concordancia direcional suficiente.
+  Ativacao: preco dentro de faixas confirmadas em dois intervalos — nao satisfeita; observado: 0; necessario: 2
+  Ativacao: ausencia de concordancia direcional em dois intervalos — satisfeita
+  Ativacao: tres intervalos disponiveis e liquidez recente suficiente — satisfeita
+  Invalidacao: ativacao de cenario direcional — nao satisfeita
+  Invalidacao: rompimento confirmado de faixa em dois intervalos — satisfeita
+  Dados insuficientes: no_supporting_structure_or_confirmed_event
+Probabilidades e retornos esperados: indisponiveis; modelo estatistico nao validado.
+Limitacao: Regras heuristicas descritivas; sem calibracao, probabilidades ou vantagem estatistica demonstrada.
+Limitacao: OHLCV spot Binance nao representa outras corretoras, livro de ofertas ou fluxo de ordens.
+Limitacao: EMA, RSI e ATR dependem da janela e das sementes; nao equivalem a historico infinito.
+Limitacao: Cenarios condicionais nao sao previsoes nem recomendacoes de negociacao.
+Limitacao: Candles historicos podem ser revisados pela fonte; replay reproduz o snapshot, nao a disponibilidade historica.
+Limitacao: Dados simulados: nenhum preco real foi observado.
+Limitacao: Pivos e eventos confirmados significam regras satisfeitas, nao certeza de fase Wyckoff.
+Limitacao: Liquidez observada em OHLCV nao mede profundidade de livro ou capacidade de execucao.

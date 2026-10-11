@@ -26,7 +26,7 @@ Snapshot canônico SHA-256:
 ## Reprodução offline
 
 ```bash
-market-intelligence replay examples/btc-snapshot.json --output /tmp/replay.json
+market-intelligence replay examples/btc-snapshot.json --schema-version 1 --output /tmp/replay.json
 python -c 'import json; assert json.load(open("/tmp/replay.json")) == json.load(open("examples/btc-analysis.json"))'
 ```
 

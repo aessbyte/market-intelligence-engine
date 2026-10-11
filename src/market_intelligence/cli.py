@@ -8,7 +8,9 @@ from pathlib import Path
 
 from .binance import BASE_URLS, BinanceClient, PublicHTTP
 from .engine import analyze
+from .config import AnalysisConfig
 from .models import MarketError
+from .render import render_text
 
 
 def parse_cutoff(value: str) -> int:
@@ -36,6 +38,9 @@ def main(argv: list[str] | None = None) -> int:
     replay.add_argument("input", type=Path)
     for command in (live, replay):
         command.add_argument("--output", type=Path, help="Write JSON instead of stdout")
+        command.add_argument("--format", choices=("json", "text"), default="json")
+        command.add_argument("--config", type=Path, help="JSON analysis configuration")
+        command.add_argument("--schema-version", type=int, choices=(1, 2), default=2)
     args = parser.parse_args(argv)
     try:
         if args.command == "analyze":
@@ -49,8 +54,17 @@ def main(argv: list[str] | None = None) -> int:
             snapshot = json.loads(args.input.read_text(encoding="utf-8"))
         if not isinstance(snapshot, dict):
             raise MarketError("Snapshot must be a JSON object")
-        result = analyze(snapshot)
-        output = json.dumps(result, ensure_ascii=False, allow_nan=False, indent=2) + "\n"
+        config = (
+            AnalysisConfig.from_dict(json.loads(args.config.read_text(encoding="utf-8")))
+            if args.config
+            else AnalysisConfig()
+        )
+        result = analyze(snapshot, config, result_version=args.schema_version)
+        output = (
+            render_text(result)
+            if args.format == "text"
+            else json.dumps(result, ensure_ascii=False, allow_nan=False, indent=2) + "\n"
+        )
         if args.output:
             args.output.write_text(output, encoding="utf-8")
         else:
