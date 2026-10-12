@@ -220,7 +220,18 @@ Snapshot canônico SHA-256:
 Resultado integrado canônico SHA-256:
 `83cfa4a219a927c476a98c5bdbab31737dd043794dc700fb9e9b282fdd238c39`.
 
-<!-- ROOT_COMMIT_RECORD: registrar commit após publicação/verificação do GitHub. -->
+Código integrado, testes e documentação:
+[`ecba35bd8539a8231da3ea6919bcd12e52bd2061`](https://github.com/aessbyte/market-intelligence-engine/commit/ecba35bd8539a8231da3ea6919bcd12e52bd2061).
+Dados/modelo/avaliação:
+[`7a6d893ebb32be2f02c8e9c6621f1449d3957c43`](https://github.com/aessbyte/market-intelligence-engine/commit/7a6d893ebb32be2f02c8e9c6621f1449d3957c43).
+Exemplo integrado:
+[`98639a49c2d8d655c1acbfd68eb3d35ab1d2dcbe`](https://github.com/aessbyte/market-intelligence-engine/commit/98639a49c2d8d655c1acbfd68eb3d35ab1d2dcbe).
+
+Publicação verificada por Git blob SHA-1 dos **88 arquivos**; repositório privado
+preservado. O bundle real foi reproduzido integralmente com o mesmo SHA-256.
+Os cinco replays exatos do bloco CI passaram. Wheel 0.3.0 construído e previsão
+reproduzida em ambiente isolado sem NumPy/SciPy/sklearn. Registro de arquivos
+modificados, commits, configuração e checks: [TASK03_DELIVERY.json](TASK03_DELIVERY.json).
 
 Novos módulos estão em `src/market_intelligence/prediction/`: contracts, dataset,
 features, targets, models, validation, metrics, training e inference. Integração
