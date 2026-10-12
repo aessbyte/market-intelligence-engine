@@ -1,0 +1,49 @@
+{
+  "started_at_utc": "2026-10-11T20:04:40.108918+00:00",
+  "finished_at_utc": "2026-10-11T20:05:03.945316+00:00",
+  "elapsed_seconds": 23.83640279700012,
+  "dataset_sha256": "d4b3fb3b08d6d2a62b5913228bd0d7a733bf9ba2cf570f15dee268cb091e4868",
+  "history_sha256": "ec6e531fea10cf760cc22b57dff175dc58aa8a2bc66cf75dd4e12f380c554d64",
+  "model_version": "model-3703fd3ae9432487",
+  "bundle_sha256": "3703fd3ae94324879015dc47831daaf45157fdffc1db3379bb2d24bcc7d85838",
+  "configuration": {
+    "version": "prediction-config-v1",
+    "seed": 42,
+    "warmup": 100,
+    "feature_window": 250,
+    "volatility_window": 30,
+    "label_sigma": 0.5,
+    "initial_train_days": 730,
+    "validation_days": 180,
+    "calibration_days": 180,
+    "test_days": 365,
+    "embargo_days": 7,
+    "min_train": 250,
+    "min_validation": 50,
+    "min_calibration": 60,
+    "min_class": 10,
+    "min_independent_tests": 30,
+    "min_boosting_train": 1500,
+    "max_calibration_error": 0.15,
+    "drift_z_limit": 6.0,
+    "logistic_c": 0.1
+  },
+  "software": {
+    "seed": 42,
+    "random_temporal_shuffle": false,
+    "artifact_format": "JSON_only_no_executable_pickle",
+    "final_model": "last_walk_forward_fold_frozen_before_its_test",
+    "blas_threads_during_fit": 1,
+    "software_versions": {
+      "python": "3.12.14",
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "scikit_learn": "1.8.0",
+      "platform": "Linux-6.18.44-x86_64-with-glibc2.41"
+    }
+  },
+  "operational_run_record_not_deterministic_model_input": true,
+  "information_cutoff_ms": 1791748182394,
+  "note": "Artifact production time is recorded here separately from assumed historical information availability. No actual forecast issuance at earlier daily origin is claimed.",
+  "reproduced_bundle_identical": true
+}

@@ -1,0 +1,1086 @@
+{
+  "prediction_schema_version": "1",
+  "symbol": "BTCUSDT",
+  "exchange": "binance",
+  "market": "spot",
+  "source": "binance_public",
+  "as_of_ms": 1791748182394,
+  "dataset_sha256": "d4b3fb3b08d6d2a62b5913228bd0d7a733bf9ba2cf570f15dee268cb091e4868",
+  "predictions": [
+    {
+      "horizon_days": 7,
+      "status": "UNVALIDATED_MODEL",
+      "prediction_origin_ms": 1791676800000,
+      "as_of_ms": 1791748182394,
+      "horizon_end_ms": 1792281600000,
+      "reference_price": 82988.36,
+      "probabilities": null,
+      "return_distribution": null,
+      "experimental_diagnostics": {
+        "status": "EXPERIMENTAL_NOT_VALIDATED",
+        "probabilities": {
+          "bearish": 0.23378486629376238,
+          "neutral": 0.4633261892289547,
+          "bullish": 0.30288894447728293
+        },
+        "return_distribution": {
+          "method": "training_only_class_conditional_volatility_normalized_empirical_mixture",
+          "median": 0.003798701909322432,
+          "lower": -0.05798169785196476,
+          "upper": 0.07793345266532806,
+          "quantiles": {
+            "0.05": -0.0860256049785029,
+            "0.1": -0.05798169785196476,
+            "0.5": 0.003798701909322432,
+            "0.9": 0.07793345266532806,
+            "0.95": 0.11074333698816909
+          },
+          "interval_nominal_coverage": 0.8,
+          "downside_threshold_return": -0.2,
+          "downside_probability": 0.009320326895432388,
+          "observations": 2555,
+          "interpretation": "end_of_horizon_return_distribution_not_support_resistance_or_guarantee"
+        },
+        "use": "research_only_not_a_validated_forecast"
+      },
+      "model_version": "model-3703fd3ae9432487",
+      "model_available_at_ms": 1791748182394,
+      "dataset_version": "binance-spot-daily-v1",
+      "evidence": {
+        "test_observations": 1914,
+        "independent_observations": 278,
+        "folds": 6,
+        "selected_strategy_metrics": {
+          "observations": 1914,
+          "brier": 0.6498864525072068,
+          "log_loss": 1.0744727821023554,
+          "accuracy": 0.45245559038662486,
+          "ece": 0.031168832324736016,
+          "ece_definition": "mean of classwise weighted absolute bin calibration errors",
+          "calibration_bins": {
+            "bearish": [
+              {
+                "lower_probability": 0.0,
+                "upper_probability": 0.1,
+                "upper_inclusive": false,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              },
+              {
+                "lower_probability": 0.1,
+                "upper_probability": 0.2,
+                "upper_inclusive": false,
+                "observations": 182,
+                "mean_probability": 0.19595049405865347,
+                "observed_frequency": 0.33516483516483514
+              },
+              {
+                "lower_probability": 0.2,
+                "upper_probability": 0.3,
+                "upper_inclusive": false,
+                "observations": 1732,
+                "mean_probability": 0.26284048571653584,
+                "observed_frequency": 0.2523094688221709
+              },
+              {
+                "lower_probability": 0.3,
+                "upper_probability": 0.4,
+                "upper_inclusive": false,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              },
+              {
+                "lower_probability": 0.4,
+                "upper_probability": 0.5,
+                "upper_inclusive": false,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              },
+              {
+                "lower_probability": 0.5,
+                "upper_probability": 0.6,
+                "upper_inclusive": false,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              },
+              {
+                "lower_probability": 0.6,
+                "upper_probability": 0.7,
+                "upper_inclusive": false,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              },
+              {
+                "lower_probability": 0.7,
+                "upper_probability": 0.8,
+                "upper_inclusive": false,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              },
+              {
+                "lower_probability": 0.8,
+                "upper_probability": 0.9,
+                "upper_inclusive": false,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              },
+              {
+                "lower_probability": 0.9,
+                "upper_probability": 1.0,
+                "upper_inclusive": true,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              }
+            ],
+            "neutral": [
+              {
+                "lower_probability": 0.0,
+                "upper_probability": 0.1,
+                "upper_inclusive": false,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              },
+              {
+                "lower_probability": 0.1,
+                "upper_probability": 0.2,
+                "upper_inclusive": false,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              },
+              {
+                "lower_probability": 0.2,
+                "upper_probability": 0.3,
+                "upper_inclusive": false,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              },
+              {
+                "lower_probability": 0.3,
+                "upper_probability": 0.4,
+                "upper_inclusive": false,
+                "observations": 716,
+                "mean_probability": 0.379045696545498,
+                "observed_frequency": 0.45391061452513964
+              },
+              {
+                "lower_probability": 0.4,
+                "upper_probability": 0.5,
+                "upper_inclusive": false,
+                "observations": 1016,
+                "mean_probability": 0.4561560765260151,
+                "observed_frequency": 0.46653543307086615
+              },
+              {
+                "lower_probability": 0.5,
+                "upper_probability": 0.6,
+                "upper_inclusive": false,
+                "observations": 182,
+                "mean_probability": 0.5084516124075547,
+                "observed_frequency": 0.36813186813186816
+              },
+              {
+                "lower_probability": 0.6,
+                "upper_probability": 0.7,
+                "upper_inclusive": false,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              },
+              {
+                "lower_probability": 0.7,
+                "upper_probability": 0.8,
+                "upper_inclusive": false,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              },
+              {
+                "lower_probability": 0.8,
+                "upper_probability": 0.9,
+                "upper_inclusive": false,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              },
+              {
+                "lower_probability": 0.9,
+                "upper_probability": 1.0,
+                "upper_inclusive": true,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              }
+            ],
+            "bullish": [
+              {
+                "lower_probability": 0.0,
+                "upper_probability": 0.1,
+                "upper_inclusive": false,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              },
+              {
+                "lower_probability": 0.1,
+                "upper_probability": 0.2,
+                "upper_inclusive": false,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              },
+              {
+                "lower_probability": 0.2,
+                "upper_probability": 0.3,
+                "upper_inclusive": false,
+                "observations": 358,
+                "mean_probability": 0.2964419915138129,
+                "observed_frequency": 0.26536312849162014
+              },
+              {
+                "lower_probability": 0.3,
+                "upper_probability": 0.4,
+                "upper_inclusive": false,
+                "observations": 1556,
+                "mean_probability": 0.3146411117758079,
+                "observed_frequency": 0.29241645244215936
+              },
+              {
+                "lower_probability": 0.4,
+                "upper_probability": 0.5,
+                "upper_inclusive": false,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              },
+              {
+                "lower_probability": 0.5,
+                "upper_probability": 0.6,
+                "upper_inclusive": false,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              },
+              {
+                "lower_probability": 0.6,
+                "upper_probability": 0.7,
+                "upper_inclusive": false,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              },
+              {
+                "lower_probability": 0.7,
+                "upper_probability": 0.8,
+                "upper_inclusive": false,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              },
+              {
+                "lower_probability": 0.8,
+                "upper_probability": 0.9,
+                "upper_inclusive": false,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              },
+              {
+                "lower_probability": 0.9,
+                "upper_probability": 1.0,
+                "upper_inclusive": true,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              }
+            ]
+          }
+        },
+        "paired_baseline_comparison": {
+          "observations": 1914,
+          "n_independent": 278,
+          "brier_lift": 0.0,
+          "brier_confidence_interval": [
+            0.0,
+            0.0
+          ],
+          "log_loss_lift": 0.0,
+          "log_loss_confidence_interval": [
+            0.0,
+            0.0
+          ],
+          "positive_edge": false,
+          "confidence_level": 0.95,
+          "bootstrap_samples": 1000,
+          "seed": 42,
+          "method": "paired percentile bootstrap on greedy horizon-spaced origins",
+          "limitations": [
+            "non-overlapping targets do not prove statistical independence",
+            "one historical sample cannot establish durable predictive advantage"
+          ]
+        },
+        "return_interval_coverage": {
+          "observations": 1914,
+          "covered_observations": 1565,
+          "coverage": 0.8176593521421107,
+          "mean_interval_width": 0.19202445278199842,
+          "median_prediction_mae": 0.05288569697622019,
+          "median_absolute_error": 0.037486453981258334,
+          "return_definition": "arithmetic end-of-horizon return; not path excursion"
+        },
+        "frozen_final_model_comparison": {
+          "observations": 124,
+          "n_independent": 18,
+          "brier_lift": 0.0,
+          "brier_confidence_interval": [
+            0.0,
+            0.0
+          ],
+          "log_loss_lift": 0.0,
+          "log_loss_confidence_interval": [
+            0.0,
+            0.0
+          ],
+          "positive_edge": false,
+          "confidence_level": 0.95,
+          "bootstrap_samples": 1000,
+          "seed": 42,
+          "method": "paired percentile bootstrap on greedy horizon-spaced origins",
+          "limitations": [
+            "non-overlapping targets do not prove statistical independence",
+            "one historical sample cannot establish durable predictive advantage"
+          ]
+        }
+      },
+      "max_feature_standardized_distance": 2.3252834521048484,
+      "limitations": [
+        "frozen_final_model_has_no_supported_holdout_improvement",
+        "insufficient_independent_frozen_final_model_tests",
+        "no_supported_improvement_over_validation_selected_simple_baseline",
+        "terminal_simple_baseline_has_no_supported_predictive_edge"
+      ],
+      "scenario_relationship": "statistical_end_return_classes_are_distinct_from_conditional_rule_scenarios",
+      "reference_timing": "daily_close_reference; reference_as_of_ms_is_data_cutoff_not_actual_issuance"
+    },
+    {
+      "horizon_days": 30,
+      "status": "UNVALIDATED_MODEL",
+      "prediction_origin_ms": 1791676800000,
+      "as_of_ms": 1791748182394,
+      "horizon_end_ms": 1794268800000,
+      "reference_price": 82988.36,
+      "probabilities": null,
+      "return_distribution": null,
+      "experimental_diagnostics": {
+        "status": "EXPERIMENTAL_NOT_VALIDATED",
+        "probabilities": {
+          "bearish": 0.357340286132743,
+          "neutral": 0.3779288182493233,
+          "bullish": 0.26473089561793367
+        },
+        "return_distribution": {
+          "method": "training_only_class_conditional_volatility_normalized_empirical_mixture",
+          "median": -0.012690554843960004,
+          "lower": -0.1650850387423058,
+          "upper": 0.18151526700058618,
+          "quantiles": {
+            "0.05": -0.21228497476140046,
+            "0.1": -0.1650850387423058,
+            "0.5": -0.012690554843960004,
+            "0.9": 0.18151526700058618,
+            "0.95": 0.30400473573903214
+          },
+          "interval_nominal_coverage": 0.8,
+          "downside_threshold_return": -0.2,
+          "downside_probability": 0.05541949510297785,
+          "observations": 2532,
+          "interpretation": "end_of_horizon_return_distribution_not_support_resistance_or_guarantee"
+        },
+        "use": "research_only_not_a_validated_forecast"
+      },
+      "model_version": "model-3703fd3ae9432487",
+      "model_available_at_ms": 1791748182394,
+      "dataset_version": "binance-spot-daily-v1",
+      "evidence": {
+        "test_observations": 1776,
+        "independent_observations": 64,
+        "folds": 6,
+        "selected_strategy_metrics": {
+          "observations": 1776,
+          "brier": 0.9107161389740004,
+          "log_loss": 3.5528774103783336,
+          "accuracy": 0.3350225225225225,
+          "ece": 0.208810825406886,
+          "ece_definition": "mean of classwise weighted absolute bin calibration errors",
+          "calibration_bins": {
+            "bearish": [
+              {
+                "lower_probability": 0.0,
+                "upper_probability": 0.1,
+                "upper_inclusive": false,
+                "observations": 36,
+                "mean_probability": 0.08210483050763623,
+                "observed_frequency": 0.0
+              },
+              {
+                "lower_probability": 0.1,
+                "upper_probability": 0.2,
+                "upper_inclusive": false,
+                "observations": 94,
+                "mean_probability": 0.1494752937800554,
+                "observed_frequency": 0.010638297872340425
+              },
+              {
+                "lower_probability": 0.2,
+                "upper_probability": 0.3,
+                "upper_inclusive": false,
+                "observations": 927,
+                "mean_probability": 0.24390286922482193,
+                "observed_frequency": 0.31283710895361383
+              },
+              {
+                "lower_probability": 0.3,
+                "upper_probability": 0.4,
+                "upper_inclusive": false,
+                "observations": 114,
+                "mean_probability": 0.33672567345492505,
+                "observed_frequency": 0.24561403508771928
+              },
+              {
+                "lower_probability": 0.4,
+                "upper_probability": 0.5,
+                "upper_inclusive": false,
+                "observations": 30,
+                "mean_probability": 0.4503354671975778,
+                "observed_frequency": 0.06666666666666667
+              },
+              {
+                "lower_probability": 0.5,
+                "upper_probability": 0.6,
+                "upper_inclusive": false,
+                "observations": 25,
+                "mean_probability": 0.5518525860430221,
+                "observed_frequency": 0.44
+              },
+              {
+                "lower_probability": 0.6,
+                "upper_probability": 0.7,
+                "upper_inclusive": false,
+                "observations": 14,
+                "mean_probability": 0.6565083618734914,
+                "observed_frequency": 0.35714285714285715
+              },
+              {
+                "lower_probability": 0.7,
+                "upper_probability": 0.8,
+                "upper_inclusive": false,
+                "observations": 39,
+                "mean_probability": 0.749192470201346,
+                "observed_frequency": 0.28205128205128205
+              },
+              {
+                "lower_probability": 0.8,
+                "upper_probability": 0.9,
+                "upper_inclusive": false,
+                "observations": 35,
+                "mean_probability": 0.861478847088278,
+                "observed_frequency": 0.14285714285714285
+              },
+              {
+                "lower_probability": 0.9,
+                "upper_probability": 1.0,
+                "upper_inclusive": true,
+                "observations": 462,
+                "mean_probability": 0.991730388105307,
+                "observed_frequency": 0.18181818181818182
+              }
+            ],
+            "neutral": [
+              {
+                "lower_probability": 0.0,
+                "upper_probability": 0.1,
+                "upper_inclusive": false,
+                "observations": 500,
+                "mean_probability": 0.012265884315538818,
+                "observed_frequency": 0.392
+              },
+              {
+                "lower_probability": 0.1,
+                "upper_probability": 0.2,
+                "upper_inclusive": false,
+                "observations": 105,
+                "mean_probability": 0.1511565580177125,
+                "observed_frequency": 0.2
+              },
+              {
+                "lower_probability": 0.2,
+                "upper_probability": 0.3,
+                "upper_inclusive": false,
+                "observations": 151,
+                "mean_probability": 0.2533740876946253,
+                "observed_frequency": 0.3708609271523179
+              },
+              {
+                "lower_probability": 0.3,
+                "upper_probability": 0.4,
+                "upper_inclusive": false,
+                "observations": 609,
+                "mean_probability": 0.3742915336508713,
+                "observed_frequency": 0.4302134646962233
+              },
+              {
+                "lower_probability": 0.4,
+                "upper_probability": 0.5,
+                "upper_inclusive": false,
+                "observations": 273,
+                "mean_probability": 0.43438022802831305,
+                "observed_frequency": 0.36996336996337
+              },
+              {
+                "lower_probability": 0.5,
+                "upper_probability": 0.6,
+                "upper_inclusive": false,
+                "observations": 83,
+                "mean_probability": 0.5450153600785107,
+                "observed_frequency": 0.5662650602409639
+              },
+              {
+                "lower_probability": 0.6,
+                "upper_probability": 0.7,
+                "upper_inclusive": false,
+                "observations": 30,
+                "mean_probability": 0.6544991526555652,
+                "observed_frequency": 1.0
+              },
+              {
+                "lower_probability": 0.7,
+                "upper_probability": 0.8,
+                "upper_inclusive": false,
+                "observations": 25,
+                "mean_probability": 0.7178987144376439,
+                "observed_frequency": 0.96
+              },
+              {
+                "lower_probability": 0.8,
+                "upper_probability": 0.9,
+                "upper_inclusive": false,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              },
+              {
+                "lower_probability": 0.9,
+                "upper_probability": 1.0,
+                "upper_inclusive": true,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              }
+            ],
+            "bullish": [
+              {
+                "lower_probability": 0.0,
+                "upper_probability": 0.1,
+                "upper_inclusive": false,
+                "observations": 516,
+                "mean_probability": 0.005081377607255512,
+                "observed_frequency": 0.4166666666666667
+              },
+              {
+                "lower_probability": 0.1,
+                "upper_probability": 0.2,
+                "upper_inclusive": false,
+                "observations": 70,
+                "mean_probability": 0.16643342523654722,
+                "observed_frequency": 0.2
+              },
+              {
+                "lower_probability": 0.2,
+                "upper_probability": 0.3,
+                "upper_inclusive": false,
+                "observations": 375,
+                "mean_probability": 0.2647078833737916,
+                "observed_frequency": 0.28
+              },
+              {
+                "lower_probability": 0.3,
+                "upper_probability": 0.4,
+                "upper_inclusive": false,
+                "observations": 264,
+                "mean_probability": 0.36367640997133494,
+                "observed_frequency": 0.2916666666666667
+              },
+              {
+                "lower_probability": 0.4,
+                "upper_probability": 0.5,
+                "upper_inclusive": false,
+                "observations": 478,
+                "mean_probability": 0.4168102198504079,
+                "observed_frequency": 0.29707112970711297
+              },
+              {
+                "lower_probability": 0.5,
+                "upper_probability": 0.6,
+                "upper_inclusive": false,
+                "observations": 54,
+                "mean_probability": 0.5278452927767694,
+                "observed_frequency": 0.6111111111111112
+              },
+              {
+                "lower_probability": 0.6,
+                "upper_probability": 0.7,
+                "upper_inclusive": false,
+                "observations": 9,
+                "mean_probability": 0.6388322227964992,
+                "observed_frequency": 0.7777777777777778
+              },
+              {
+                "lower_probability": 0.7,
+                "upper_probability": 0.8,
+                "upper_inclusive": false,
+                "observations": 6,
+                "mean_probability": 0.7539649514927916,
+                "observed_frequency": 0.8333333333333334
+              },
+              {
+                "lower_probability": 0.8,
+                "upper_probability": 0.9,
+                "upper_inclusive": false,
+                "observations": 4,
+                "mean_probability": 0.8222899078695649,
+                "observed_frequency": 1.0
+              },
+              {
+                "lower_probability": 0.9,
+                "upper_probability": 1.0,
+                "upper_inclusive": true,
+                "observations": 0,
+                "mean_probability": null,
+                "observed_frequency": null
+              }
+            ]
+          }
+        },
+        "paired_baseline_comparison": {
+          "observations": 1776,
+          "n_independent": 64,
+          "brier_lift": -0.2663604017960921,
+          "brier_confidence_interval": [
+            -0.41945411200503796,
+            -0.11748352635543499
+          ],
+          "log_loss_lift": -2.795724253920635,
+          "log_loss_confidence_interval": [
+            -4.601452600531635,
+            -1.271424494167777
+          ],
+          "positive_edge": false,
+          "confidence_level": 0.95,
+          "bootstrap_samples": 1000,
+          "seed": 42,
+          "method": "paired percentile bootstrap on greedy horizon-spaced origins",
+          "limitations": [
+            "non-overlapping targets do not prove statistical independence",
+            "one historical sample cannot establish durable predictive advantage"
+          ]
+        },
+        "return_interval_coverage": {
+          "observations": 1776,
+          "covered_observations": 1107,
+          "coverage": 0.6233108108108109,
+          "mean_interval_width": 0.4256339970463596,
+          "median_prediction_mae": 0.15111788545154783,
+          "median_absolute_error": 0.12414085775663741,
+          "return_definition": "arithmetic end-of-horizon return; not path excursion"
+        },
+        "frozen_final_model_comparison": {
+          "observations": 101,
+          "n_independent": 4,
+          "brier_lift": 0.07723508705447919,
+          "brier_confidence_interval": [
+            -0.08547575825620607,
+            0.3492566144579359
+          ],
+          "log_loss_lift": 0.15934883833173535,
+          "log_loss_confidence_interval": [
+            -0.07593180197205054,
+            0.5441558078867788
+          ],
+          "positive_edge": false,
+          "confidence_level": 0.95,
+          "bootstrap_samples": 1000,
+          "seed": 42,
+          "method": "paired percentile bootstrap on greedy horizon-spaced origins",
+          "limitations": [
+            "non-overlapping targets do not prove statistical independence",
+            "one historical sample cannot establish durable predictive advantage"
+          ]
+        }
+      },
+      "max_feature_standardized_distance": 2.4513477503452297,
+      "limitations": [
+        "frozen_final_model_has_no_supported_holdout_improvement",
+        "frozen_model_calibration_has_insufficient_evidence",
+        "insufficient_independent_frozen_final_model_tests",
+        "no_supported_improvement_over_validation_selected_simple_baseline",
+        "out_of_sample_probabilities_poorly_calibrated",
+        "return_interval_coverage_below_predefined_0.65_floor_for_0.8_nominal"
+      ],
+      "scenario_relationship": "statistical_end_return_classes_are_distinct_from_conditional_rule_scenarios",
+      "reference_timing": "daily_close_reference; reference_as_of_ms_is_data_cutoff_not_actual_issuance"
+    },
+    {
+      "horizon_days": 90,
+      "status": "INSUFFICIENT_EVIDENCE",
+      "prediction_origin_ms": 1791676800000,
+      "as_of_ms": 1791748182394,
+      "horizon_end_ms": 1799452800000,
+      "reference_price": 82988.36,
+      "probabilities": null,
+      "return_distribution": null,
+      "experimental_diagnostics": null,
+      "model_version": "model-3703fd3ae9432487",
+      "model_available_at_ms": 1791748182394,
+      "dataset_version": "binance-spot-daily-v1",
+      "evidence": {
+        "test_observations": 1375,
+        "independent_observations": 20,
+        "folds": 5,
+        "selected_strategy_metrics": {
+          "observations": 1375,
+          "brier": 0.8763956972144232,
+          "log_loss": 2.281469539203311,
+          "accuracy": 0.31127272727272726,
+          "ece": 0.20965683469314375,
+          "ece_definition": "mean of classwise weighted absolute bin calibration errors",
+          "calibration_bins": {
+            "bearish": [
+              {
+                "lower_probability": 0.0,
+                "upper_probability": 0.1,
+                "upper_inclusive": false,
+                "observations": 276,
+                "mean_probability": 0.005384889507613724,
+                "observed_frequency": 0.21014492753623187
+              },
+              {
+                "lower_probability": 0.1,
+                "upper_probability": 0.2,
+                "upper_inclusive": false,
+                "observations": 10,
+                "mean_probability": 0.14608005031962018,
+                "observed_frequency": 0.1
+              },
+              {
+                "lower_probability": 0.2,
+                "upper_probability": 0.3,
+                "upper_inclusive": false,
+                "observations": 283,
+                "mean_probability": 0.2645891864798887,
+                "observed_frequency": 0.6678445229681979
+              },
+              {
+                "lower_probability": 0.3,
+                "upper_probability": 0.4,
+                "upper_inclusive": false,
+                "observations": 557,
+                "mean_probability": 0.32320697068315773,
+                "observed_frequency": 0.27827648114901254
+              },
+              {
+                "lower_probability": 0.4,
+                "upper_probability": 0.5,
+                "upper_inclusive": false,
+                "observations": 9,
+                "mean_probability": 0.43856654542798107,
+                "observed_frequency": 0.0
+              },
+              {
+                "lower_probability": 0.5,
+                "upper_probability": 0.6,
+                "upper_inclusive": false,
+                "observations": 6,
+                "mean_probability": 0.5545486255647208,
+                "observed_frequency": 0.0
+              },
+              {
+                "lower_probability": 0.6,
+                "upper_probability": 0.7,
+                "upper_inclusive": false,
+                "observations": 15,
+                "mean_probability": 0.6504335817523635,
+                "observed_frequency": 0.0
+              },
+              {
+                "lower_probability": 0.7,
+                "upper_probability": 0.8,
+                "upper_inclusive": false,
+                "observations": 24,
+                "mean_probability": 0.7513655167463377,
+                "observed_frequency": 0.08333333333333333
+              },
+              {
+                "lower_probability": 0.8,
+                "upper_probability": 0.9,
+                "upper_inclusive": false,
+                "observations": 20,
+                "mean_probability": 0.8438955046641002,
+                "observed_frequency": 0.25
+              },
+              {
+                "lower_probability": 0.9,
+                "upper_probability": 1.0,
+                "upper_inclusive": true,
+                "observations": 175,
+                "mean_probability": 0.9799725290709539,
+                "observed_frequency": 0.05714285714285714
+              }
+            ],
+            "neutral": [
+              {
+                "lower_probability": 0.0,
+                "upper_probability": 0.1,
+                "upper_inclusive": false,
+                "observations": 416,
+                "mean_probability": 0.022115225381813923,
+                "observed_frequency": 0.19951923076923078
+              },
+              {
+                "lower_probability": 0.1,
+                "upper_probability": 0.2,
+                "upper_inclusive": false,
+                "observations": 47,
+                "mean_probability": 0.1396506235887893,
+                "observed_frequency": 0.19148936170212766
+              },
+              {
+                "lower_probability": 0.2,
+                "upper_probability": 0.3,
+                "upper_inclusive": false,
+                "observations": 28,
+                "mean_probability": 0.24696402709929566,
+                "observed_frequency": 0.21428571428571427
+              },
+              {
+                "lower_probability": 0.3,
+                "upper_probability": 0.4,
+                "upper_inclusive": false,
+                "observations": 697,
+                "mean_probability": 0.31651547325307305,
+                "observed_frequency": 0.3113342898134864
+              },
+              {
+                "lower_probability": 0.4,
+                "upper_probability": 0.5,
+                "upper_inclusive": false,
+                "observations": 145,
+                "mean_probability": 0.42843655197911495,
+                "observed_frequency": 0.3931034482758621
+              },
+              {
+                "lower_probability": 0.5,
+                "upper_probability": 0.6,
+                "upper_inclusive": false,
+                "observations": 14,
+                "mean_probability": 0.5511998244904998,
+                "observed_frequency": 0.14285714285714285
+              },
+              {
+                "lower_probability": 0.6,
+                "upper_probability": 0.7,
+                "upper_inclusive": false,
+                "observations": 15,
+                "mean_probability": 0.6335808533591154,
+                "observed_frequency": 0.6
+              },
+              {
+                "lower_probability": 0.7,
+                "upper_probability": 0.8,
+                "upper_inclusive": false,
+                "observations": 5,
+                "mean_probability": 0.773524621072515,
+                "observed_frequency": 1.0
+              },
+              {
+                "lower_probability": 0.8,
+                "upper_probability": 0.9,
+                "upper_inclusive": false,
+                "observations": 3,
+                "mean_probability": 0.8280619923047609,
+                "observed_frequency": 1.0
+              },
+              {
+                "lower_probability": 0.9,
+                "upper_probability": 1.0,
+                "upper_inclusive": true,
+                "observations": 5,
+                "mean_probability": 0.9471044921921454,
+                "observed_frequency": 1.0
+              }
+            ],
+            "bullish": [
+              {
+                "lower_probability": 0.0,
+                "upper_probability": 0.1,
+                "upper_inclusive": false,
+                "observations": 193,
+                "mean_probability": 0.02020724765731631,
+                "observed_frequency": 0.8134715025906736
+              },
+              {
+                "lower_probability": 0.1,
+                "upper_probability": 0.2,
+                "upper_inclusive": false,
+                "observations": 28,
+                "mean_probability": 0.15808234423237597,
+                "observed_frequency": 0.2857142857142857
+              },
+              {
+                "lower_probability": 0.2,
+                "upper_probability": 0.3,
+                "upper_inclusive": false,
+                "observations": 164,
+                "mean_probability": 0.22877335395763107,
+                "observed_frequency": 0.3231707317073171
+              },
+              {
+                "lower_probability": 0.3,
+                "upper_probability": 0.4,
+                "upper_inclusive": false,
+                "observations": 442,
+                "mean_probability": 0.36317156124732075,
+                "observed_frequency": 0.3891402714932127
+              },
+              {
+                "lower_probability": 0.4,
+                "upper_probability": 0.5,
+                "upper_inclusive": false,
+                "observations": 297,
+                "mean_probability": 0.4294505419920972,
+                "observed_frequency": 0.11447811447811448
+              },
+              {
+                "lower_probability": 0.5,
+                "upper_probability": 0.6,
+                "upper_inclusive": false,
+                "observations": 10,
+                "mean_probability": 0.5498499475478736,
+                "observed_frequency": 0.2
+              },
+              {
+                "lower_probability": 0.6,
+                "upper_probability": 0.7,
+                "upper_inclusive": false,
+                "observations": 11,
+                "mean_probability": 0.6623674544388328,
+                "observed_frequency": 0.6363636363636364
+              },
+              {
+                "lower_probability": 0.7,
+                "upper_probability": 0.8,
+                "upper_inclusive": false,
+                "observations": 26,
+                "mean_probability": 0.7504135103406491,
+                "observed_frequency": 0.5384615384615384
+              },
+              {
+                "lower_probability": 0.8,
+                "upper_probability": 0.9,
+                "upper_inclusive": false,
+                "observations": 27,
+                "mean_probability": 0.8523462959835917,
+                "observed_frequency": 0.37037037037037035
+              },
+              {
+                "lower_probability": 0.9,
+                "upper_probability": 1.0,
+                "upper_inclusive": true,
+                "observations": 177,
+                "mean_probability": 0.9647899842202656,
+                "observed_frequency": 0.576271186440678
+              }
+            ]
+          }
+        },
+        "paired_baseline_comparison": {
+          "observations": 1375,
+          "n_independent": 20,
+          "brier_lift": -0.1982393210970067,
+          "brier_confidence_interval": [
+            -0.43577964517247647,
+            -0.015067263724330784
+          ],
+          "log_loss_lift": -1.6707769643234627,
+          "log_loss_confidence_interval": [
+            -3.5811277670848636,
+            -0.2310006967521384
+          ],
+          "positive_edge": false,
+          "confidence_level": 0.95,
+          "bootstrap_samples": 1000,
+          "seed": 42,
+          "method": "paired percentile bootstrap on greedy horizon-spaced origins",
+          "limitations": [
+            "non-overlapping targets do not prove statistical independence",
+            "one historical sample cannot establish durable predictive advantage"
+          ]
+        },
+        "return_interval_coverage": {
+          "observations": 1375,
+          "covered_observations": 962,
+          "coverage": 0.6996363636363636,
+          "mean_interval_width": 1.3244257083929294,
+          "median_prediction_mae": 0.3250611380691004,
+          "median_absolute_error": 0.2643326370556462,
+          "return_definition": "arithmetic end-of-horizon return; not path excursion"
+        },
+        "frozen_final_model_comparison": {
+          "observations": 275,
+          "n_independent": 4,
+          "brier_lift": 0.0,
+          "brier_confidence_interval": [
+            0.0,
+            0.0
+          ],
+          "log_loss_lift": 0.0,
+          "log_loss_confidence_interval": [
+            0.0,
+            0.0
+          ],
+          "positive_edge": false,
+          "confidence_level": 0.95,
+          "bootstrap_samples": 1000,
+          "seed": 42,
+          "method": "paired percentile bootstrap on greedy horizon-spaced origins",
+          "limitations": [
+            "non-overlapping targets do not prove statistical independence",
+            "one historical sample cannot establish durable predictive advantage"
+          ]
+        }
+      },
+      "max_feature_standardized_distance": 13.040232460052462,
+      "limitations": [
+        "feature_distribution_shift",
+        "frozen_final_model_has_no_supported_holdout_improvement",
+        "frozen_model_calibration_has_insufficient_evidence",
+        "insufficient_independent_frozen_final_model_tests",
+        "insufficient_independent_out_of_sample_observations",
+        "no_supported_improvement_over_validation_selected_simple_baseline",
+        "out_of_sample_probabilities_poorly_calibrated",
+        "terminal_simple_baseline_has_no_supported_predictive_edge"
+      ],
+      "scenario_relationship": "statistical_end_return_classes_are_distinct_from_conditional_rule_scenarios",
+      "reference_timing": "daily_close_reference; reference_as_of_ms_is_data_cutoff_not_actual_issuance"
+    }
+  ]
+}

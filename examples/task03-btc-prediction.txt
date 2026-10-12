@@ -1,0 +1,50 @@
+BTCUSDT | 2026-10-11T19:49:42.394000+00:00
+Origem: binance_public | mercado: binance spot
+Previsoes quantitativas: retorno ao final do horizonte, em dias corridos.
+  7 dias | UNVALIDATED_MODEL
+    Origem das features: 2026-10-11T00:00:00+00:00
+    Probabilidades validadas: indisponiveis.
+    EXPERIMENTAL / somente pesquisa: modelo nao validado.
+    Probabilidades estimadas: bullish=30.29% | neutral=46.33% | bearish=23.38%
+    Retorno mediano: 0.38% | intervalo preditivo nominal 80%: -5.80% a 7.79%
+    Cauda negativa: P(retorno <= -20%)=0.93%; nao representa suporte, resistencia ou garantia.
+    Modelo: model-3703fd3ae9432487 | dados: binance-spot-daily-v1
+    Evidencia fora da amostra: 1914 observacoes; 278 janelas sem sobreposicao; 6 folds.
+    Metricas: brier=0.649886 | log_loss=1.074473 | ece=0.031169
+    Cobertura observada do intervalo fora da amostra: 81.77%.
+    Limitacao: frozen_final_model_has_no_supported_holdout_improvement
+    Limitacao: insufficient_independent_frozen_final_model_tests
+    Limitacao: no_supported_improvement_over_validation_selected_simple_baseline
+    Limitacao: terminal_simple_baseline_has_no_supported_predictive_edge
+  30 dias | UNVALIDATED_MODEL
+    Origem das features: 2026-10-11T00:00:00+00:00
+    Probabilidades validadas: indisponiveis.
+    EXPERIMENTAL / somente pesquisa: modelo nao validado.
+    Probabilidades estimadas: bullish=26.47% | neutral=37.79% | bearish=35.73%
+    Retorno mediano: -1.27% | intervalo preditivo nominal 80%: -16.51% a 18.15%
+    Cauda negativa: P(retorno <= -20%)=5.54%; nao representa suporte, resistencia ou garantia.
+    Modelo: model-3703fd3ae9432487 | dados: binance-spot-daily-v1
+    Evidencia fora da amostra: 1776 observacoes; 64 janelas sem sobreposicao; 6 folds.
+    Metricas: brier=0.910716 | log_loss=3.552877 | ece=0.208811
+    Cobertura observada do intervalo fora da amostra: 62.33%.
+    Limitacao: frozen_final_model_has_no_supported_holdout_improvement
+    Limitacao: frozen_model_calibration_has_insufficient_evidence
+    Limitacao: insufficient_independent_frozen_final_model_tests
+    Limitacao: no_supported_improvement_over_validation_selected_simple_baseline
+    Limitacao: out_of_sample_probabilities_poorly_calibrated
+    Limitacao: return_interval_coverage_below_predefined_0.65_floor_for_0.8_nominal
+  90 dias | INSUFFICIENT_EVIDENCE
+    Origem das features: 2026-10-11T00:00:00+00:00
+    Probabilidades validadas: indisponiveis.
+    Modelo: model-3703fd3ae9432487 | dados: binance-spot-daily-v1
+    Evidencia fora da amostra: 1375 observacoes; 20 janelas sem sobreposicao; 5 folds.
+    Metricas: brier=0.876396 | log_loss=2.281470 | ece=0.209657
+    Cobertura observada do intervalo fora da amostra: 69.96%.
+    Limitacao: feature_distribution_shift
+    Limitacao: frozen_final_model_has_no_supported_holdout_improvement
+    Limitacao: frozen_model_calibration_has_insufficient_evidence
+    Limitacao: insufficient_independent_frozen_final_model_tests
+    Limitacao: insufficient_independent_out_of_sample_observations
+    Limitacao: no_supported_improvement_over_validation_selected_simple_baseline
+    Limitacao: out_of_sample_probabilities_poorly_calibrated
+    Limitacao: terminal_simple_baseline_has_no_supported_predictive_edge

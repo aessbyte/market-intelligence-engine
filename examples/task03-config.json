@@ -1,0 +1,22 @@
+{
+  "version": "prediction-config-v1",
+  "seed": 42,
+  "warmup": 100,
+  "feature_window": 250,
+  "volatility_window": 30,
+  "label_sigma": 0.5,
+  "initial_train_days": 730,
+  "validation_days": 180,
+  "calibration_days": 180,
+  "test_days": 365,
+  "embargo_days": 7,
+  "min_train": 250,
+  "min_validation": 50,
+  "min_calibration": 60,
+  "min_class": 10,
+  "min_independent_tests": 30,
+  "min_boosting_train": 1500,
+  "max_calibration_error": 0.15,
+  "drift_z_limit": 6.0,
+  "logistic_c": 0.1
+}
