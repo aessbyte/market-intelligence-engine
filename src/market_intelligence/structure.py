@@ -110,6 +110,7 @@ def analyze_structure(
                             "observation": "close_returned_across_level",
                         },
                         "confirmed",
+                        suffix=":" + event.id,
                     )
                 )
                 if event.state == "confirmed":
@@ -127,6 +128,7 @@ def analyze_structure(
                     journal.append(
                         event.transition("invalidated", now, {"reason": "confirmation_timeout"})
                     )
+                    broken.discard(event.evidence[0]["level_id"])
                     continue
             if i - start <= config.false_break_window or event.state == "candidate":
                 new_breaks.append((start, event, direction, level, count, prior_trend))
@@ -188,6 +190,7 @@ def analyze_structure(
                             "close": candle.close,
                             "wick_crossed_level": True,
                         },
+                        suffix=":" + pivot.event.id,
                     )
                 )
         remaining = []

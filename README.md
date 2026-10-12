@@ -1,17 +1,20 @@
 # Market Intelligence Engine
 
-Fundação em Python para análise **descritiva, determinística e auditável** de mercados
-spot usando OHLCV público da Binance. Etapas 1 e 2: coleta, qualidade de dados,
-indicadores, estrutura de mercado, hipóteses Wyckoff, cenários condicionais e CLI.
-Sem execução de ordens, credenciais privadas,
-previsões de preço ou probabilidades estimadas.
+Motor Python para análise **auditável** de mercados spot usando OHLCV público da
+Binance. As etapas 1 e 2 oferecem indicadores, estrutura, hipóteses Wyckoff e cenários
+condicionais. A Task 03 acrescenta datasets históricos, features causais, modelos
+probabilísticos e avaliação temporal fora da amostra. O experimento real BTCUSDT
+**não sustentou uma previsão validada**: os campos públicos de probabilidade e
+magnitude permanecem `null`, com motivos explícitos e diagnósticos experimentais.
+Não há execução de ordens, credenciais privadas ou interface gráfica definitiva.
 
 Licença MIT. O repositório permanece privado conforme a criação solicitada; a licença
 permite distribuição open source quando o proprietário decidir publicá-lo.
 
 ## Instalação
 
-Python 3.11 ou superior. O motor usa apenas a biblioteca padrão.
+Python 3.11 ou superior. Análise descritiva e inferência de artefatos JSON usam a
+biblioteca padrão. Treinamento requer o extra opcional `predictive`.
 
 ```bash
 git clone https://github.com/aessbyte/market-intelligence-engine.git
@@ -21,18 +24,20 @@ source .venv/bin/activate  # Windows: .venv\Scripts\activate
 python -m pip install -e .
 ```
 
-Para desenvolvimento, instalar as ferramentas de verificação:
+Para treinamento e desenvolvimento completo:
 
 ```bash
-python -m pip install -e '.[dev]'
+python -m pip install -e '.[dev,predictive]'
 python -m unittest discover -s tests -v
 ruff check src tests
 ruff format --check src tests
 mypy src
 ```
 
-Os testes usam transporte simulado e não exigem rede. Apenas `test_schema.py` depende
-de `jsonschema`, incluído no extra de desenvolvimento. CI executa Python 3.11 e 3.12.
+O extra fixa NumPy 2.3.5, SciPy 1.17.0 e scikit-learn 1.8.0; as ferramentas de
+verificação também são fixadas em `pyproject.toml`. Os testes são offline, com dados
+sintéticos explicitamente identificados e transporte simulado. Eles verificam o
+software; não demonstram desempenho preditivo real. `jsonschema` está no extra `dev`.
 
 ## Uso
 
@@ -150,6 +155,72 @@ API: `analyze(snapshot, config=None, result_version=2)`; usar `result_version=1`
 para resultado legado idêntico. Schema legado: `result-v1.schema.json`.
 Regras/indicadores da Etapa 1 não foram recalculados por outra implementação.
 
+## Previsão e validação temporal — Task 03
+
+O contrato padrão continua v2. Previsões integradas exigem `--schema-version 3`,
+um bundle JSON e um dataset D1 compatível com o histórico e o corte da análise.
+Sem modelo ou evidência suficiente, v3 retorna os horizontes 7/30/90 dias com status
+e probabilidades ausentes. O schema está em `result-v3.schema.json`.
+
+```bash
+# Rede explícita: armazenar histórico real, sem fallback sintético.
+market-intelligence dataset BTCUSDT --bars 5000 --output btc-dataset.json
+
+# Treinar, selecionar na validação, calibrar em bloco separado e avaliar holdouts.
+market-intelligence train examples/task03-btc-dataset.json \
+  --config examples/task03-config.json --output /tmp/btc-model.json \
+  --report /tmp/btc-evaluation.json
+
+# Inferência offline com artefato salvo; não refaz treinamento.
+market-intelligence predict examples/task03-btc-dataset.json \
+  --model examples/task03-btc-model.json --format text
+market-intelligence predict examples/task03-btc-dataset.json \
+  --model examples/task03-btc-model.json --output /tmp/btc-prediction.json
+
+# Replay integrado dos três intervalos e previsões no mesmo corte histórico.
+market-intelligence replay examples/task03-btc-snapshot.json --schema-version 3 \
+  --model examples/task03-btc-model.json \
+  --prediction-dataset examples/task03-btc-dataset.json --format text
+
+# Análise descritiva v3 sem bundle: previsões indisponíveis explicitamente.
+market-intelligence analyze ETHUSDT --schema-version 3 --format text
+```
+
+A coleta completa de BTC encontrou um timestamp de fechamento inválido em
+08/02/2018. O treino recusou esse dataset. O exemplo real usa o período contíguo
+desde **09/02/2018**, escolhido por integridade antes da modelagem; não houve reparo
+do candle. Uma nova coleta com o mesmo critério explícito pode usar:
+
+```bash
+market-intelligence dataset BTCUSDT --bars 5000 \
+  --start 2018-02-09T00:00:00Z \
+  --selection-reason 'Excluir período anterior: fechamento D1 inválido em 2018-02-08; critério de integridade' \
+  --output btc-dataset.json
+```
+
+Essa chamada captura dados atuais e gera outro hash; a reprodução exata usa o
+dataset salvo. O bundle deve receber o histórico completo desde seu início
+registrado, preservando candles anteriores e disponibilidades dos eventos. Dados
+alterados, truncados, de outro símbolo ou posteriores ao corte provocam abstinência.
+
+São comparados frequências históricas, momentum, regressão logística multinomial
+e gradient boosting quando há treino suficiente. Features D1 incluem indicadores,
+estrutura e Wyckoff conhecidos na origem; H1/H4 continuam na análise descritiva.
+Alvos de 7/30/90 dias usam limites proporcionais à volatilidade observada na origem.
+Walk-forward aplica purge de alvos, embargo, scaler somente no treino e calibração
+reservada. Brier, log loss, tabelas de calibração, comparações pareadas e cobertura
+dos intervalos são persistidos por horizonte/fold. Nenhum holdout seleciona modelos.
+
+As classes estatísticas representam retorno **ao final do horizonte**. Seus campos
+não são probabilidades dos cenários condicionais de estrutura/Wyckoff. Magnitude
+empírica, quando sustentada, é distribuição de retornos e não suporte, resistência
+ou preço garantido. `experimental_diagnostics` é exclusivamente material de pesquisa.
+
+Regras matemáticas e gates: [`TASK03_RULES.md`](TASK03_RULES.md). Auditoria e defeitos
+corrigidos: [`AUDIT_TASK03.md`](AUDIT_TASK03.md). Métricas reais, falhas e próximos
+passos: [`TASK03_REPORT.md`](TASK03_REPORT.md). Comandos, dados e hashes da execução:
+[`examples/TASK03_DEMO.md`](examples/TASK03_DEMO.md).
+
 ## Demonstração com dados reais
 
 [`examples/btc-snapshot.json`](examples/btc-snapshot.json) foi capturado pelo próprio
@@ -167,9 +238,11 @@ SOS/LPS. Nenhum de seus preços foi observado na Binance.
 Consulte [`ARCHITECTURE.md`](ARCHITECTURE.md), [`AGENTS.md`](AGENTS.md) e
 [`VALIDATION.md`](VALIDATION.md). O protocolo `AnalysisModule` recebe candles fechados,
 imutáveis e corte temporal explícito. Estrutura e Wyckoff são módulos operacionais
-de regras. Smart Money completo, fluxo, previsão probabilística e backtesting
-continuam como extensões futuras.
+de regras. Smart Money completo, fluxo e backtesting de estratégias continuam como
+extensões futuras. O pipeline probabilístico está implementado para pesquisa, com
+critérios de abstinência; validação robusta para uso operacional continua pendente.
 
-Não há GUI, infraestrutura de negociação, chave de API, modelo treinado ou backtest.
-Nenhuma vantagem estatística é declarada. OHLCV de uma única corretora e regras
-descritivas não bastam para estabelecer previsões ou desempenho de uma estratégia.
+Não há GUI, infraestrutura de negociação, chave de API ou backtest de estratégia.
+O exemplo inclui modelo treinado e avaliação probabilística, sem vantagem estatística
+declarada. Uma amostra de um único ativo/corretora não estabelece desempenho geral
+nem resultado financeiro de uma estratégia.

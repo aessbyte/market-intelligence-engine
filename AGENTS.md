@@ -25,7 +25,7 @@ não considerar uma capacidade implementada apenas porque está no README.
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-python -m pip install -e '.[dev]'
+python -m pip install -e '.[dev,predictive]'
 python -m unittest discover -s tests -v
 ruff check src tests
 ruff format --check src tests
@@ -58,3 +58,14 @@ Testar causalidade em cada prefixo e comparar diários filtrados por disponibili
 Wyckoff confirmado por regra não autoriza afirmar fases ou inventário institucional.
 Probabilidades/retornos permanecem null até existir modelo/calibração versionados.
 Manter replay legado v1 e os exemplos Task 02 (reais e simulados claramente separados).
+
+Task 03: manter o contrato padrão v2; previsões integradas usam schema v3 explícito.
+Treinamento depende do extra predictive; inferência usa artefatos JSON, sem pickle.
+Features D1 e alvos devem registrar origem/disponibilidade. Nunca fazer shuffle de
+séries; fazer purge de target_available_ms nas fronteiras, embargo configurável,
+normalização no treino, seleção na validação e calibração no bloco reservado.
+Nenhum resultado do teste pode alterar modelo, limiar ou hiperparâmetro.
+Verificar métricas e contagens por horizonte, amostras não sobrepostas, cobertura
+dos intervalos, gates de abstinência e reprodução com seed. Dados sintéticos não
+validam modelos reais. Probabilidades públicas permanecem null quando o modelo
+não satisfaz a política; diagnósticos experimentais precisam de rótulo explícito.

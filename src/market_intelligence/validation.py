@@ -17,6 +17,8 @@ def parse_klines(rows: Any) -> tuple[Candle, ...]:
             for position in (0, 6, 8):
                 if isinstance(row[position], bool) or not isinstance(row[position], int):
                     raise ValueError("timestamps and trade counts must be integers")
+            if any(isinstance(row[position], bool) for position in (1, 2, 3, 4, 5, 7)):
+                raise ValueError("OHLCV fields cannot be boolean")
             candles.append(
                 Candle(
                     row[0],

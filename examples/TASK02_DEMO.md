@@ -10,6 +10,12 @@ Todos passaram nas validações da Etapa 1.
 Snapshot canônico SHA-256:
 `a8a150a4921a2a3af36cb4481bcec6e6e707be9c472996275518cf66422c292e`.
 Resultado JSON canônico SHA-256:
+`f961b946c04184e43126c7879929bbd88b30b3f2f0703295a93be00b96d2ef2c`.
+
+Na auditoria Task 03, corrigidos IDs de falsas rupturas que colidiam no mesmo
+candle e ocultavam observações distintas. O JSON/texto foram regenerados com a
+correção; tendências e estados dos cenários descritos abaixo são preservados.
+O hash anterior, do commit Task 02, era
 `526c0f7dcf6cf0ff30749003676eee91a34b24cfb18aba5b3f250f7b16c7fc7e`.
 
 | Leitura | D1 | H4 | H1 |

@@ -1,7 +1,9 @@
-# Decisões arquiteturais — Etapas 1 e 2
+# Decisões arquiteturais — Etapas 1, 2 e 3
 
 ADR 001–007 registram a fundação original. ADR 008–010 ampliam essa fundação na
 Task 02; os módulos de estrutura/Wyckoff antes futuros agora têm implementação.
+ADR 011–015 registram o pipeline probabilístico da Task 03, preservando os contratos
+descritivos e distinguindo implementação de software de validação preditiva.
 
 ## Fluxo e limites
 
@@ -115,7 +117,7 @@ Não há módulos fictícios registrando resultados vazios como se estivessem im
 
 exchangeInfo descreve disponibilidade **atual**, inclusive em consultas históricas;
 ativos retirados podem ser indisponíveis. Não há universo de listagens point-in-time,
-garantia contra revisões da Binance, calendário de incidentes, cache persistente,
+garantia contra revisões da Binance, calendário de incidentes,
 WebSocket ou agendamento. Prefixos históricos testam causalidade das fórmulas, não
 disponibilidade histórica real. Esses limites precisam ser resolvidos antes de afirmar
 validade de um backtest ou vantagem estatística.
@@ -165,3 +167,86 @@ Hipóteses Wyckoff nunca atribuem fase A–E. A versão atual não reconstrói o
 livro/fluxo, nested ranges, microestrutura ou confirmação intercorretoras. Retestes
 direcionais têm uma emissão por tipo/faixa. Isso deve ser validado e ampliado antes
 de treinar modelos quantitativos sobre os eventos.
+
+## ADR 011 — Dataset histórico persistente e população explícita
+
+`prediction/dataset.py` reutiliza BinanceClient e validation; não cria outro
+provider. Armazena rows originais, Binance/spot/símbolo/D1/UTC, endpoint, corte do
+servidor, qualidade, histórico curto e versões/hashes. Dataset salvo é a unidade
+reproduzível de treinamento. A primeira população é um ativo spot em D1; snapshots
+H1/H4 curtos não viram histórico multitemporal fictício.
+
+Invalidade impede treino. Recorte explícito pode selecionar um período contíguo,
+com início UTC, justificativa, hash e qualidade do pai. Não há reparo, preenchimento
+ou substituição por simulação. No exemplo BTC, o timestamp inválido de 08/02/2018
+levou à seleção desde 09/02/2018, antes da modelagem. O pai permanece no registro de
+auditoria. SHA-256 garante igualdade do conteúdo, sem autenticar origem/revisões.
+
+## ADR 012 — Features por disponibilidade e alvos separados
+
+`prediction/features.py` gera 65 features D1 com fonte e disponibilidade por scalar.
+Indicadores mantêm matemática/sementes existentes, em janela de até 250 candles;
+estrutura e Wyckoff preservam contexto integral do dataset. O consumo do diário
+sequencial usa somente revisões já disponíveis. Pivôs confirmados não retroagem;
+estado final de um evento futuro não é uma feature histórica. Zero para ausência
+tem indicador correspondente, evitando confundir falta de evidência com observação.
+
+`prediction/targets.py` cria alvos 7/30/90 dias com endpoint UTC exato, retorno final,
+limiar de volatilidade conhecido na origem e disponibilidade do alvo. Excursões
+máximas usam apenas candles futuros e ficam separadas das entradas. Constantes de
+classes são predefinidas na configuração; teste não escolhe limiares. O dataset não
+comprova latência histórica: disponibilidade close+1ms é convenção declarada.
+
+## ADR 013 — Fronteiras cronológicas e modelo final congelado
+
+`prediction/validation.py` define treino expansivo, validação, calibração e teste
+por tempo, sem shuffle. Em cada fronteira remove alvos que alcancem a próxima
+origem; embargo é configurável. Testes de folds distintos também purgam alvos
+atravessando o fim nominal do holdout. Features podem ler passado conhecido, mas
+scaler ajusta apenas treino e calibração só usa seu bloco reservado.
+
+`prediction/training.py` fixa candidatos/hiperparâmetros antes da avaliação e
+seleciona por Brier/log loss da validação, com desempate por simplicidade. O último
+fold emitido é o holdout final. Seu modelo fica congelado antes dos resultados e
+não é retreinado ao final. Um fold futuro pode incorporar alvos de holdout antigo
+após sua disponibilidade, sem fazer tuning automático pelas métricas observadas.
+O relatório diferencia estratégia de seleção entre folds e modelo final congelado.
+
+## ADR 014 — Treinamento opcional, inferência JSON e métricas auditáveis
+
+`prediction/models.py` compara frequências, momentum, logística multinomial e
+gradient boosting condicionado à quantidade de treino. NumPy/SciPy/scikit-learn
+ficam no extra predictive, com versões fixadas. Inferência calcula softmax, árvores
+e temperatura a partir de parâmetros JSON validados, sem pickle ou execução de
+código carregado do artefato. O pacote descritivo continua sem dependências runtime.
+
+`prediction/metrics.py` registra Brier multiclass, log loss, acurácia separada, bins
+de calibração, ECE, comparações pareadas em origens espaçadas pelo horizonte e
+bootstrap com seed. Modelos com folds ausentes carregam referência nos mesmos
+folds; médias de populações diferentes não são comparação justa. Intervalos vêm
+de mistura empírica de retornos normalizados pela volatilidade, ajustada no treino,
+com cobertura medida fora da amostra. Não sobreposição não prova independência.
+
+## ADR 015 — Abstinência, compatibilidade e API sem treinamento implícito
+
+`prediction/inference.py` devolve probabilidades/retornos públicos somente quando
+a política de validação e qualidade é satisfeita. Histórico/população insuficientes,
+calibração fraca, falta de melhoria contra baseline, poucos holdouts independentes,
+drift, regime raro e dados incompatíveis produzem abstinência. Diagnósticos numéricos
+experimentais têm rótulo próprio; nunca preenchem campos públicos ausentes.
+
+Engine 0.3.0 preserva resultado padrão v2 e replay legado v1. V3 explícito integra
+predições sem recalcular treinamento: `analyze(snapshot, config=None,
+result_version=3, prediction_bundle=bundle, prediction_dataset=dataset)`. O histórico
+de features deve começar no contexto original e preservar hash dos candles usados
+na criação do bundle. Recorte curto ou revisão desse histórico impede inferência.
+CLI dataset/train/predict separa coleta, modelagem e uso; JSON é consumível por API
+web futura, sem fitting no navegador.
+
+`prediction_origin_ms` identifica referência no último fechamento diário;
+`as_of_ms` identifica corte da emissão/análise. Disponibilidade informacional do
+bundle inclui dados e alvos de avaliação. Instante real da produção é registrado
+separadamente no registro operacional; não se alega emissão histórica antes do
+treinamento efetivo. Registry com carimbo de criação/verificação criptográfica ainda
+precisa ser desenvolvido. Classes de retorno não são os cenários de regras, que
+mantêm probabilidades null. Nenhuma camada autoriza negociação automática.

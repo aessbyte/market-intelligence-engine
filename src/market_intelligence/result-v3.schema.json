@@ -1,0 +1,964 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/aessbyte/market-intelligence-engine/result-v3.schema.json",
+  "title": "Market Intelligence Engine result v3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "engine_version",
+    "symbol",
+    "as_of_ms",
+    "status",
+    "provenance",
+    "configuration",
+    "timeframes",
+    "regime",
+    "evidence",
+    "limitations",
+    "scenarios",
+    "multitimeframe",
+    "predictions"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "3"
+    },
+    "engine_version": {
+      "type": "string"
+    },
+    "symbol": {
+      "type": "string",
+      "pattern": "^[A-Z0-9]{5,30}$"
+    },
+    "as_of_ms": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "status": {
+      "enum": [
+        "ok",
+        "degraded"
+      ]
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "source",
+        "market",
+        "simulated",
+        "snapshot_sha256",
+        "server_time_ms",
+        "requested_bars",
+        "endpoint",
+        "source_claim_verified"
+      ],
+      "properties": {
+        "source": {
+          "enum": [
+            "binance_public",
+            "simulated"
+          ]
+        },
+        "market": {
+          "const": "binance_spot"
+        },
+        "simulated": {
+          "type": "boolean"
+        },
+        "snapshot_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "server_time_ms": {
+          "type": "integer"
+        },
+        "requested_bars": {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 5000
+        },
+        "endpoint": {
+          "type": "string"
+        },
+        "source_claim_verified": {
+          "const": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "configuration": {
+      "type": "object",
+      "required": [
+        "rules",
+        "minimum_history",
+        "aggregate_rule",
+        "analysis"
+      ]
+    },
+    "timeframes": {
+      "type": "object",
+      "required": [
+        "H1",
+        "H4",
+        "D1"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "H1": {
+          "$ref": "#/$defs/frame"
+        },
+        "H4": {
+          "$ref": "#/$defs/frame"
+        },
+        "D1": {
+          "$ref": "#/$defs/frame"
+        }
+      }
+    },
+    "regime": {
+      "$ref": "#/$defs/regime"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "scenarios": {
+      "$ref": "#/$defs/scenarios"
+    },
+    "multitimeframe": {
+      "type": "object",
+      "required": [
+        "version",
+        "as_of_ms",
+        "observations",
+        "agreements",
+        "conflicts",
+        "structural_consensus",
+        "insufficient_data"
+      ]
+    },
+    "predictions": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": false,
+      "prefixItems": [
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/prediction"
+            },
+            {
+              "properties": {
+                "horizon_days": {
+                  "const": 7
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/prediction"
+            },
+            {
+              "properties": {
+                "horizon_days": {
+                  "const": 30
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/prediction"
+            },
+            {
+              "properties": {
+                "horizon_days": {
+                  "const": 90
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "regime": {
+      "enum": [
+        "alta",
+        "baixa",
+        "lateralizacao",
+        "indeterminado"
+      ]
+    },
+    "scenarios": {
+      "type": "array",
+      "minItems": 3,
+      "items": false,
+      "maxItems": 3,
+      "prefixItems": [
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/scenario_item"
+            },
+            {
+              "properties": {
+                "name": {
+                  "const": "bullish"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/scenario_item"
+            },
+            {
+              "properties": {
+                "name": {
+                  "const": "bearish"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/scenario_item"
+            },
+            {
+              "properties": {
+                "name": {
+                  "const": "neutral"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "frame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "interval",
+        "quality",
+        "indicators",
+        "regime",
+        "evidence",
+        "scenarios",
+        "structure",
+        "wyckoff"
+      ],
+      "properties": {
+        "interval": {
+          "enum": [
+            "1h",
+            "4h",
+            "1d"
+          ]
+        },
+        "quality": {
+          "type": "object",
+          "required": [
+            "valid",
+            "errors"
+          ],
+          "properties": {
+            "valid": {
+              "type": "boolean"
+            },
+            "errors": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "indicators": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "required": [
+                "close",
+                "sma20",
+                "ema20",
+                "ema50",
+                "ema20_slope5_atr",
+                "ema_gap_atr",
+                "rsi14",
+                "atr14",
+                "atr_percent",
+                "realized_volatility20",
+                "bollinger_lower20",
+                "bollinger_upper20",
+                "volume_ratio20",
+                "obv",
+                "efficiency20"
+              ],
+              "properties": {
+                "volume_ratio20": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                }
+              },
+              "additionalProperties": {
+                "type": "number"
+              }
+            }
+          ]
+        },
+        "regime": {
+          "$ref": "#/$defs/regime"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "scenarios": {
+          "$ref": "#/$defs/legacy_scenarios"
+        },
+        "structure": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/structure"
+            }
+          ]
+        },
+        "wyckoff": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/wyckoff"
+            }
+          ]
+        }
+      }
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "event_time_ms",
+        "detected_at_ms",
+        "available_at_ms",
+        "price",
+        "interval",
+        "state",
+        "evidence",
+        "parameters",
+        "confirmed_at_ms",
+        "invalidated_at_ms"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "event_time_ms": {
+          "type": "integer"
+        },
+        "detected_at_ms": {
+          "type": "integer"
+        },
+        "available_at_ms": {
+          "type": "integer"
+        },
+        "price": {
+          "type": "number"
+        },
+        "interval": {
+          "enum": [
+            "1h",
+            "4h",
+            "1d"
+          ]
+        },
+        "state": {
+          "enum": [
+            "candidate",
+            "confirmed",
+            "invalidated"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object"
+          }
+        },
+        "parameters": {
+          "type": "object"
+        },
+        "confirmed_at_ms": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "invalidated_at_ms": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "confirmed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "confirmed_at_ms": {
+                "type": "integer"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "invalidated"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "invalidated_at_ms": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "structure": {
+      "type": "object",
+      "required": [
+        "version",
+        "parameters",
+        "trend",
+        "events",
+        "event_journal",
+        "levels",
+        "trend_history",
+        "insufficient_data",
+        "last_close",
+        "last_close_time_ms"
+      ],
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/event"
+          }
+        },
+        "event_journal": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/event"
+          }
+        },
+        "insufficient_data": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "trend": {
+          "$ref": "#/$defs/regime"
+        }
+      }
+    },
+    "wyckoff": {
+      "type": "object",
+      "required": [
+        "version",
+        "parameters",
+        "range",
+        "events",
+        "event_journal",
+        "hypotheses",
+        "liquidity_warnings",
+        "insufficient_data",
+        "limitations"
+      ],
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/event"
+          }
+        },
+        "event_journal": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/event"
+          }
+        },
+        "insufficient_data": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "legacy_scenarios": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "condition",
+          "invalidation",
+          "probability",
+          "price_target"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "condition": {
+            "type": "string"
+          },
+          "invalidation": {
+            "type": "string"
+          },
+          "probability": {
+            "type": "null"
+          },
+          "price_target": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    "scenario_item": {
+      "type": "object",
+      "required": [
+        "name",
+        "condition",
+        "invalidation",
+        "probability",
+        "price_target",
+        "thesis",
+        "state",
+        "favorable_evidence",
+        "contrary_evidence",
+        "activation_conditions",
+        "invalidation_conditions",
+        "structural_levels",
+        "insufficient_data",
+        "forecast",
+        "parameters",
+        "as_of_ms"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "condition": {
+          "type": "string"
+        },
+        "invalidation": {
+          "type": "string"
+        },
+        "probability": {
+          "type": "null"
+        },
+        "price_target": {
+          "type": "null"
+        },
+        "state": {
+          "enum": [
+            "active",
+            "awaiting_confirmation",
+            "invalidated"
+          ]
+        },
+        "forecast": {
+          "type": "object",
+          "required": [
+            "status",
+            "calibrated_probability",
+            "expected_return_interval",
+            "horizon",
+            "model_version",
+            "calibration_evidence"
+          ],
+          "properties": {
+            "status": {
+              "const": "unavailable"
+            },
+            "calibrated_probability": {
+              "type": "null"
+            },
+            "expected_return_interval": {
+              "type": "null"
+            },
+            "horizon": {
+              "type": "null"
+            },
+            "model_version": {
+              "type": "null"
+            },
+            "calibration_evidence": {
+              "type": "null"
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "probabilities": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "bearish",
+        "neutral",
+        "bullish"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "bearish": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "neutral": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "bullish": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "return_distribution": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "method",
+        "median",
+        "lower",
+        "upper",
+        "quantiles",
+        "interval_nominal_coverage",
+        "downside_threshold_return",
+        "downside_probability",
+        "observations",
+        "interpretation"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "method": {
+          "type": "string"
+        },
+        "median": {
+          "type": "number",
+          "minimum": -1
+        },
+        "lower": {
+          "type": "number",
+          "minimum": -1
+        },
+        "upper": {
+          "type": "number",
+          "minimum": -1
+        },
+        "quantiles": {
+          "type": "object",
+          "required": [
+            "0.05",
+            "0.1",
+            "0.5",
+            "0.9",
+            "0.95"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "0.05": {
+              "type": "number",
+              "minimum": -1
+            },
+            "0.1": {
+              "type": "number",
+              "minimum": -1
+            },
+            "0.5": {
+              "type": "number",
+              "minimum": -1
+            },
+            "0.9": {
+              "type": "number",
+              "minimum": -1
+            },
+            "0.95": {
+              "type": "number",
+              "minimum": -1
+            }
+          }
+        },
+        "interval_nominal_coverage": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "exclusiveMaximum": 1
+        },
+        "downside_threshold_return": {
+          "type": "number",
+          "minimum": -1
+        },
+        "downside_probability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "observations": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "interpretation": {
+          "type": "string"
+        }
+      }
+    },
+    "experimental_diagnostics": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "status",
+        "probabilities",
+        "return_distribution",
+        "use"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "const": "EXPERIMENTAL_NOT_VALIDATED"
+        },
+        "probabilities": {
+          "$ref": "#/$defs/probabilities"
+        },
+        "return_distribution": {
+          "$ref": "#/$defs/return_distribution"
+        },
+        "use": {
+          "const": "research_only_not_a_validated_forecast"
+        }
+      }
+    },
+    "prediction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "horizon_days",
+        "status",
+        "prediction_origin_ms",
+        "as_of_ms",
+        "horizon_end_ms",
+        "reference_price",
+        "probabilities",
+        "return_distribution",
+        "experimental_diagnostics",
+        "model_version",
+        "dataset_version",
+        "evidence",
+        "max_feature_standardized_distance",
+        "limitations",
+        "scenario_relationship"
+      ],
+      "properties": {
+        "horizon_days": {
+          "enum": [
+            7,
+            30,
+            90
+          ]
+        },
+        "status": {
+          "enum": [
+            "INSUFFICIENT_EVIDENCE",
+            "UNVALIDATED_MODEL",
+            "VALIDATED_MODEL"
+          ]
+        },
+        "prediction_origin_ms": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "as_of_ms": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "horizon_end_ms": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "reference_price": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        "probabilities": {
+          "$ref": "#/$defs/probabilities"
+        },
+        "return_distribution": {
+          "$ref": "#/$defs/return_distribution"
+        },
+        "experimental_diagnostics": {
+          "$ref": "#/$defs/experimental_diagnostics"
+        },
+        "model_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dataset_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evidence": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "max_feature_standardized_distance": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "scenario_relationship": {
+          "const": "statistical_end_return_classes_are_distinct_from_conditional_rule_scenarios"
+        },
+        "model_available_at_ms": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "reference_timing": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "INSUFFICIENT_EVIDENCE",
+                  "UNVALIDATED_MODEL"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "probabilities": {
+                "const": null
+              },
+              "return_distribution": {
+                "const": null
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "INSUFFICIENT_EVIDENCE"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "experimental_diagnostics": {
+                "const": null
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -4,14 +4,15 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "market-intelligence-engine"
-version = "0.2.0"
-description = "Auditable, deterministic analysis of public Binance spot OHLCV"
+version = "0.3.0"
+description = "Auditable Binance spot analysis and temporally validated probabilistic research"
 requires-python = ">=3.11"
 license = "MIT"
 dependencies = []
 
 [project.optional-dependencies]
 dev = ["ruff==0.11.13", "mypy==1.15.0", "jsonschema==4.26.0"]
+predictive = ["numpy==2.3.5", "scipy==1.17.0", "scikit-learn==1.8.0"]
 
 [project.scripts]
 market-intelligence = "market_intelligence.cli:main"
@@ -29,4 +30,8 @@ target-version = "py311"
 [tool.mypy]
 python_version = "3.11"
 strict = true
+
+[[tool.mypy.overrides]]
+module = ["sklearn.*"]
+ignore_missing_imports = true
 

@@ -51,6 +51,76 @@ def _readable(item: dict[str, Any]) -> str:
     return str(item.get("observation", "evidencia registrada no JSON"))
 
 
+def _prediction_lines(predictions: list[dict[str, Any]]) -> list[str]:
+    lines = ["Previsoes quantitativas: retorno ao final do horizonte, em dias corridos."]
+    for prediction in predictions:
+        lines.append(f"  {prediction['horizon_days']} dias | {prediction['status']}")
+        origin = prediction.get("prediction_origin_ms")
+        if origin is not None:
+            lines.append(f"    Origem das features: {_time(origin)}")
+        probabilities = prediction.get("probabilities")
+        experimental = prediction.get("experimental_diagnostics")
+        distribution = prediction.get("return_distribution")
+        if probabilities is None:
+            lines.append("    Probabilidades validadas: indisponiveis.")
+        if isinstance(experimental, dict) and probabilities is None:
+            lines.append("    EXPERIMENTAL / somente pesquisa: modelo nao validado.")
+            probabilities = experimental.get("probabilities")
+            distribution = experimental.get("return_distribution")
+        if isinstance(probabilities, dict):
+            lines.append(
+                "    Probabilidades estimadas: "
+                + " | ".join(
+                    f"{name}={100 * probabilities[name]:.2f}%"
+                    for name in ("bullish", "neutral", "bearish")
+                )
+            )
+        if isinstance(distribution, dict):
+            lines.append(
+                f"    Retorno mediano: {100 * distribution['median']:.2f}% | intervalo preditivo nominal {100 * distribution['interval_nominal_coverage']:.0f}%: {100 * distribution['lower']:.2f}% a {100 * distribution['upper']:.2f}%"
+            )
+            lines.append(
+                f"    Cauda negativa: P(retorno <= {100 * distribution['downside_threshold_return']:.0f}%)={100 * distribution['downside_probability']:.2f}%; nao representa suporte, resistencia ou garantia."
+            )
+        if prediction.get("model_version"):
+            lines.append(
+                f"    Modelo: {prediction['model_version']} | dados: {prediction.get('dataset_version')}"
+            )
+        evidence = prediction.get("evidence")
+        if isinstance(evidence, dict):
+            lines.append(
+                f"    Evidencia fora da amostra: {evidence.get('test_observations', 0)} observacoes; {evidence.get('independent_observations', 0)} janelas sem sobreposicao; {evidence.get('folds', 0)} folds."
+            )
+            metrics = evidence.get("selected_strategy_metrics")
+            if isinstance(metrics, dict):
+                lines.append(
+                    "    Metricas: "
+                    + " | ".join(
+                        f"{name}={metrics[name]:.6f}"
+                        for name in ("brier", "log_loss", "ece")
+                        if isinstance(metrics.get(name), (int, float))
+                    )
+                )
+            coverage = evidence.get("return_interval_coverage")
+            if isinstance(coverage, dict) and isinstance(coverage.get("coverage"), (int, float)):
+                lines.append(
+                    f"    Cobertura observada do intervalo fora da amostra: {100 * coverage['coverage']:.2f}%."
+                )
+        for limitation in prediction.get("limitations", []):
+            lines.append("    Limitacao: " + str(limitation))
+    return lines
+
+
+def render_prediction_text(result: dict[str, Any]) -> str:
+    """Render the standalone inference envelope without requiring a snapshot."""
+    lines = [
+        f"{result['symbol']} | {_time(result['as_of_ms'])}",
+        f"Origem: {result['source']} | mercado: {result['exchange']} {result['market']}",
+    ]
+    lines.extend(_prediction_lines(result["predictions"]))
+    return "\n".join(lines) + "\n"
+
+
 def render_text(result: dict[str, Any]) -> str:
     date = datetime.fromtimestamp(result["as_of_ms"] / 1000, timezone.utc).isoformat()
     lines = [
@@ -129,8 +199,11 @@ def render_text(result: dict[str, Any]) -> str:
                 lines.append(f"  {label}: {_readable(condition)}")
         if scenario.get("insufficient_data"):
             lines.append("  Dados insuficientes: " + ", ".join(scenario["insufficient_data"]))
-    lines.append(
-        "Probabilidades e retornos esperados: indisponiveis; modelo estatistico nao validado."
-    )
+    if "predictions" in result:
+        lines.extend(_prediction_lines(result["predictions"]))
+    else:
+        lines.append(
+            "Probabilidades e retornos esperados: indisponiveis; modelo estatistico nao validado."
+        )
     lines.extend("Limitacao: " + limitation for limitation in result["limitations"])
     return "\n".join(lines) + "\n"

@@ -13,7 +13,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
-      - run: python -m pip install -e '.[dev]'
+      - run: python -m pip install -e '.[dev,predictive]'
       - run: python -m unittest discover -s tests -v
       - run: ruff check src tests
       - run: ruff format --check src tests
@@ -25,3 +25,7 @@ jobs:
           python -c 'import json; assert json.load(open("/tmp/task02.json")) == json.load(open("examples/task02-btc-analysis.json"))'
           market-intelligence replay examples/task02-synthetic-snapshot.json --output /tmp/synthetic.json
           python -c 'import json; assert json.load(open("/tmp/synthetic.json")) == json.load(open("examples/task02-synthetic-analysis.json"))'
+          market-intelligence replay examples/task03-btc-snapshot.json --schema-version 3 --model examples/task03-btc-model.json --prediction-dataset examples/task03-btc-dataset.json --output /tmp/task03.json
+          python -c 'import json; assert json.load(open("/tmp/task03.json")) == json.load(open("examples/task03-btc-analysis.json"))'
+          market-intelligence predict examples/task03-btc-dataset.json --model examples/task03-btc-model.json --output /tmp/task03-prediction.json
+          python -c 'import json; assert json.load(open("/tmp/task03-prediction.json")) == json.load(open("examples/task03-btc-prediction.json"))'
