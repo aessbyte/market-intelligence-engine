@@ -1,0 +1,176 @@
+{
+  "captured_at_utc": "2026-10-12T23:42:42.261Z",
+  "base_url": "http://127.0.0.1:8000",
+  "workflow": "browser -> production API -> existing engine -> public Binance",
+  "results": [
+    {
+      "device": "desktop",
+      "analysis_id": "5de00e82fbacd4feaacf44ec",
+      "summary": {
+        "symbol": "BTCUSDT",
+        "base_asset": "BTC",
+        "quote_asset": "USDT",
+        "tick_size": 0.01,
+        "reference_price": 82157.66,
+        "reference_time_ms": 1791845999999,
+        "as_of_ms": 1791848542830,
+        "change_percent": -0.5044191780045448,
+        "change_basis": "previous_closed_H1",
+        "volume": 635.47781,
+        "volume_basis": "base_asset_last_closed_H1",
+        "atr_percent": 0.5070699334234102,
+        "quality": "ok"
+      },
+      "source": {
+        "endpoint": "https://data-api.binance.vision",
+        "market": "binance_spot",
+        "requested_bars": 250,
+        "server_time_ms": 1791848542830,
+        "simulated": false,
+        "snapshot_sha256": "d6943afd03a4930e0e642d3bcad617e3a068558647bf55f21818025419b2cac2",
+        "source": "binance_public",
+        "source_claim_verified": false
+      },
+      "overflow": {
+        "viewport": 1440,
+        "document": 1440
+      },
+      "candles": {
+        "D1": 250,
+        "H1": 250,
+        "H4": 250
+      },
+      "predictions": [
+        {
+          "horizon_days": 7,
+          "status": "UNVALIDATED_MODEL",
+          "probabilities": null,
+          "model_version": "model-3703fd3ae9432487",
+          "limitations": [
+            "frozen_final_model_has_no_supported_holdout_improvement",
+            "insufficient_independent_frozen_final_model_tests",
+            "no_supported_improvement_over_validation_selected_simple_baseline",
+            "terminal_simple_baseline_has_no_supported_predictive_edge"
+          ]
+        },
+        {
+          "horizon_days": 30,
+          "status": "UNVALIDATED_MODEL",
+          "probabilities": null,
+          "model_version": "model-3703fd3ae9432487",
+          "limitations": [
+            "frozen_final_model_has_no_supported_holdout_improvement",
+            "frozen_model_calibration_has_insufficient_evidence",
+            "insufficient_independent_frozen_final_model_tests",
+            "no_supported_improvement_over_validation_selected_simple_baseline",
+            "out_of_sample_probabilities_poorly_calibrated",
+            "return_interval_coverage_below_predefined_0.65_floor_for_0.8_nominal"
+          ]
+        },
+        {
+          "horizon_days": 90,
+          "status": "INSUFFICIENT_EVIDENCE",
+          "probabilities": null,
+          "model_version": "model-3703fd3ae9432487",
+          "limitations": [
+            "feature_distribution_shift",
+            "frozen_final_model_has_no_supported_holdout_improvement",
+            "frozen_model_calibration_has_insufficient_evidence",
+            "insufficient_independent_frozen_final_model_tests",
+            "insufficient_independent_out_of_sample_observations",
+            "no_supported_improvement_over_validation_selected_simple_baseline",
+            "out_of_sample_probabilities_poorly_calibrated",
+            "terminal_simple_baseline_has_no_supported_predictive_edge"
+          ]
+        }
+      ]
+    },
+    {
+      "device": "mobile",
+      "analysis_id": "5de00e82fbacd4feaacf44ec",
+      "summary": {
+        "symbol": "BTCUSDT",
+        "base_asset": "BTC",
+        "quote_asset": "USDT",
+        "tick_size": 0.01,
+        "reference_price": 82157.66,
+        "reference_time_ms": 1791845999999,
+        "as_of_ms": 1791848542830,
+        "change_percent": -0.5044191780045448,
+        "change_basis": "previous_closed_H1",
+        "volume": 635.47781,
+        "volume_basis": "base_asset_last_closed_H1",
+        "atr_percent": 0.5070699334234102,
+        "quality": "ok"
+      },
+      "source": {
+        "endpoint": "https://data-api.binance.vision",
+        "market": "binance_spot",
+        "requested_bars": 250,
+        "server_time_ms": 1791848542830,
+        "simulated": false,
+        "snapshot_sha256": "d6943afd03a4930e0e642d3bcad617e3a068558647bf55f21818025419b2cac2",
+        "source": "binance_public",
+        "source_claim_verified": false
+      },
+      "overflow": {
+        "viewport": 360,
+        "document": 360
+      },
+      "candles": {
+        "D1": 250,
+        "H1": 250,
+        "H4": 250
+      },
+      "predictions": [
+        {
+          "horizon_days": 7,
+          "status": "UNVALIDATED_MODEL",
+          "probabilities": null,
+          "model_version": "model-3703fd3ae9432487",
+          "limitations": [
+            "frozen_final_model_has_no_supported_holdout_improvement",
+            "insufficient_independent_frozen_final_model_tests",
+            "no_supported_improvement_over_validation_selected_simple_baseline",
+            "terminal_simple_baseline_has_no_supported_predictive_edge"
+          ]
+        },
+        {
+          "horizon_days": 30,
+          "status": "UNVALIDATED_MODEL",
+          "probabilities": null,
+          "model_version": "model-3703fd3ae9432487",
+          "limitations": [
+            "frozen_final_model_has_no_supported_holdout_improvement",
+            "frozen_model_calibration_has_insufficient_evidence",
+            "insufficient_independent_frozen_final_model_tests",
+            "no_supported_improvement_over_validation_selected_simple_baseline",
+            "out_of_sample_probabilities_poorly_calibrated",
+            "return_interval_coverage_below_predefined_0.65_floor_for_0.8_nominal"
+          ]
+        },
+        {
+          "horizon_days": 90,
+          "status": "INSUFFICIENT_EVIDENCE",
+          "probabilities": null,
+          "model_version": "model-3703fd3ae9432487",
+          "limitations": [
+            "feature_distribution_shift",
+            "frozen_final_model_has_no_supported_holdout_improvement",
+            "frozen_model_calibration_has_insufficient_evidence",
+            "insufficient_independent_frozen_final_model_tests",
+            "insufficient_independent_out_of_sample_observations",
+            "no_supported_improvement_over_validation_selected_simple_baseline",
+            "out_of_sample_probabilities_poorly_calibrated",
+            "terminal_simple_baseline_has_no_supported_predictive_edge"
+          ]
+        }
+      ]
+    }
+  ],
+  "browser_errors": [],
+  "limitations": [
+    "Android viewport/touch emulation; not a physical Android device.",
+    "Synthetic failure/short-history cases are exercised separately by E2E tests."
+  ]
+}

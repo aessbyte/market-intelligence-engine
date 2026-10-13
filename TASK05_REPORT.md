@@ -1,6 +1,6 @@
 # Task 05 — Interface web e integração do motor
 
-Data da entrega: 12/10/2026, UTC. Base inspecionada:
+Execução: 12/10/2026 UTC; publicação: 13/10/2026 UTC. Base inspecionada:
 `fcf7118437676c48f1f004cad75106ad07e46aa7`.
 
 ## Escopo e estado inicial
