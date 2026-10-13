@@ -3,8 +3,10 @@
 ## Escopo
 
 Python 3.11+, arquitetura em `src/market_intelligence`, testes em `tests`.
-Não implementar execução de ordens, endpoints privados, GUI definitiva ou previsões
-sem evidência. Etapas 1 e 2: preservar licença MIT e privacidade do repositório.
+Frontend React/TypeScript em `frontend`; API opcional em `src/market_intelligence/web`.
+Não implementar execução de ordens, endpoints privados ou previsões sem evidência.
+A interface web foi autorizada explicitamente pela Task 05, ampliando a restrição
+de GUI das etapas anteriores. Preservar licença MIT e privacidade do repositório.
 Antes de ampliar o motor, ler documentação e código e executar a suíte existente;
 não considerar uma capacidade implementada apenas porque está no README.
 
@@ -25,7 +27,7 @@ não considerar uma capacidade implementada apenas porque está no README.
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-python -m pip install -e '.[dev,predictive]'
+python -m pip install -e '.[dev,predictive,web]'
 python -m unittest discover -s tests -v
 ruff check src tests
 ruff format --check src tests
@@ -69,3 +71,37 @@ Verificar métricas e contagens por horizonte, amostras não sobrepostas, cobert
 dos intervalos, gates de abstinência e reprodução com seed. Dados sintéticos não
 validam modelos reais. Probabilidades públicas permanecem null quando o modelo
 não satisfaz a política; diagnósticos experimentais precisam de rótulo explícito.
+
+Task 05: preservar a separação motor/API/apresentação. `web/` só coordena providers,
+artefatos previamente validados e `engine.analyze` v3; não duplicar regras e não
+treinar em consultas. Schemas Pydantic e Zod precisam concordar com tipos reais,
+nulls, mercado e timestamps. O endpoint de engine integral preserva os diários.
+Mudanças de contrato web devem incluir testes Python, contrato TypeScript e UI.
+
+Gráficos devem usar candles fechados/séries do backend. Pivôs não são conhecidos
+em sua origem retrospectiva; testar marcadores por disponibilidade e níveis que
+começam após a confirmação. Não converter candidato em fato, cenário em previsão,
+intervalo de retorno em suporte ou probabilidade ausente em zero/default. Manter
+replay/simulação visíveis. W1 e futuros permanecem explicitamente indisponíveis.
+
+Checks web adicionais, além da suíte Python e seus checks:
+
+```bash
+cd frontend
+npm ci
+npm run build
+npm test
+npx playwright install chromium
+npm run test:e2e
+```
+
+Playwright serve o build pronto pela API de teste na porta 8001. O provider é sintético,
+rotulado `simulated`, sem rede nem fallback; esses testes não validam Binance live.
+`MIE_TEST_PYTHON` pode definir o Python usado e `MIE_CHROMIUM` um executável existente.
+Manter screenshots sintéticos distintos de screenshots reais/históricos.
+
+Testar teclado, ausência de probabilidades, respostas incompletas, erro de símbolo,
+falha de fonte, cache, navegação sem nova análise, overlays e viewport de 360 px.
+Não escrever na API endpoints administrativos de treino ou execução de código.
+Jobs/cache/limites ficam em memória e não são controles distribuídos de múltiplos
+processos. Configurações e execução estão em `docs/WEB.md`.

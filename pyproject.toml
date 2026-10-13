@@ -13,6 +13,7 @@ dependencies = []
 [project.optional-dependencies]
 dev = ["ruff==0.11.13", "mypy==1.15.0", "jsonschema==4.26.0"]
 predictive = ["numpy==2.3.5", "scipy==1.17.0", "scikit-learn==1.8.0"]
+web = ["fastapi==0.141.1", "uvicorn==0.52.1", "httpx==0.28.1", "jsonschema==4.26.0"]
 
 [project.scripts]
 market-intelligence = "market_intelligence.cli:main"

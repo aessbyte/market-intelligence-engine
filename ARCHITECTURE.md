@@ -1,9 +1,12 @@
-# Decisões arquiteturais — Etapas 1, 2 e 3
+# Decisões arquiteturais — Etapas 1, 2, 3 e integração web
 
 ADR 001–007 registram a fundação original. ADR 008–010 ampliam essa fundação na
 Task 02; os módulos de estrutura/Wyckoff antes futuros agora têm implementação.
 ADR 011–015 registram o pipeline probabilístico da Task 03, preservando os contratos
 descritivos e distinguindo implementação de software de validação preditiva.
+ADR 016–019 acrescentam a aplicação web da Task 05. Uma Task 04 separada não foi
+localizada na base auditada; essa integração não adiciona validação estatística
+retroativa aos modelos existentes.
 
 ## Fluxo e limites
 
@@ -250,3 +253,88 @@ separadamente no registro operacional; não se alega emissão histórica antes d
 treinamento efetivo. Registry com carimbo de criação/verificação criptográfica ainda
 precisa ser desenvolvido. Classes de retorno não são os cenários de regras, que
 mantêm probabilidades null. Nenhuma camada autoriza negociação automática.
+
+## ADR 016 — Adaptadores web separados do motor
+
+FastAPI/Pydantic em `web/` é um extra opcional; não substitui CLI, transporte,
+regras ou inferência. `AnalysisService` chama `engine.analyze(..., result_version=3)`
+com snapshot e artefatos explícitos. React/TypeScript/Vite fica em `frontend/`.
+O resultado padrão da CLI permanece v2 e o replay legado v1 permanece disponível.
+
+```text
+React/TypeScript → POST /api/v1/analyses → job transitório
+                       ↓ provider BinanceClient ou replay explícito
+                       ↓ snapshot fechado + histórico/modelo previamente carregado
+                  engine.analyze v3, sem rede e sem fitting
+                       ↓ validação JSON Schema original
+                  adaptador de apresentação → contrato web Pydantic
+                       ↓ validação Zod no navegador
+                  dashboard + Lightweight Charts
+```
+
+Não há banco de dados, serviço externo de IA, treinamento HTTP ou endpoint de
+ordens. O adaptador calcula séries gráficas com `indicators.ema` e `calculate`
+existentes, preservando sementes e fórmulas. O navegador formata valores e desenha;
+não escolhe regime, cenário, calibração ou elegibilidade.
+
+## ADR 017 — Contrato versionado, jobs e retenção limitada
+
+API em `/api/v1`, schemas Pydantic e OpenAPI. A resposta web contém resultado
+analítico, OHLCV, séries de indicadores, eventos, níveis, proveniência, metadados
+de mercado, qualidade do modelo e cache. A projeção compacta omite somente diários
+duplicados e histórico de tendência da resposta principal. O JSON v3 integral,
+incluindo `event_journal`, é acessível em `/analyses/{id}/engine`.
+
+Análise é POST assíncrono com ID, polling de job e etapas realmente executadas:
+validação, coleta, análise e preparação. Não se inventam percentuais de progresso.
+Dois threads de execução e fila de oito pendências evitam bloquear o servidor de
+consultas. IDs e resultados são transitórios; reiniciar o processo os remove.
+
+Cache de análise por modo, símbolo, janela e assinatura de artefatos: 30 segundos.
+Resultados/job concluídos têm retenção de 20 minutos, no máximo 16 registros;
+o JSON retido tem orçamento de 64 MiB e descarte LRU. Isso limita o material
+serializado persistido em memória, não representa um limite de RSS. Diretório de
+símbolos usa cache de cinco minutos. Histórico D1 para inferência é reutilizado
+por origem diária. Artefatos são carregados e validados na inicialização; trocar
+modelo/dataset exige reiniciar o serviço, invalidando cache e jobs.
+
+## ADR 018 — Causalidade e honestidade na apresentação
+
+Lightweight Charts mostra H1/H4/D1 recebidos do backend. W1 não é agregado no
+navegador e futuros não são tratados como spot. Metadados de ativo base/cotação
+e tick vêm de `exchangeInfo`; a ausência de mercado não consultado permanece
+desconhecida. Preço de referência e variação usam o último candle H1 fechado,
+não um ticker instantâneo ou variação de 24 horas.
+
+Marcadores usam o candle associado à disponibilidade da confirmação/invalidação
+ou candidatura; a coordenada vertical e o inspetor preservam o preço do evento.
+Rótulos curtos e densidade adaptativa reduzem sobreposição sem remover registros. Linhas de níveis
+começam quando ficam conhecidas. A origem histórica fica desativada por padrão e,
+quando habilitada, é explicitamente retrospectiva. O inspetor separa posição
+histórica, primeira detecção, confirmação, invalidação e disponibilidade da revisão.
+
+Probabilidade/retorno públicos `null` aparecem como indisponíveis, nunca zero ou
+50%. Diagnósticos experimentais exigem expansão e rótulo de pesquisa; os gates
+estatísticos existentes continuam valendo. Métricas OOS agregadas, teste final,
+calibração, cobertura e baseline na mesma população são distintos. Cenários
+condicionais não se tornam classes estatísticas nem trajetórias futuras. A síntese
+textual é composição direta de observações e estados estruturados, sem LLM.
+
+## ADR 019 — Execução web, segurança e mobile
+
+Build estático servido pelo mesmo FastAPI evita um segundo serviço em produção.
+Vite usa proxy local em desenvolvimento. CORS aceita origens explícitas e não
+usa credenciais; nenhum segredo ou chave Binance é enviado ao navegador. A API
+valida símbolos/parâmetros, limita corpo a 8 KiB antes do parsing, mantém timeout
+de recebimento e orçamento da consulta, aplica limites por cliente e emite logs
+JSON com request IDs. Diretório estático é contido no build configurado.
+
+O deployment inicial usa um processo API; jobs/cache/rate limits não são
+distribuídos. HTTPS em proxy frontal é o caminho de publicação e uso Android;
+não é necessário Termux. Layout adapta de 360 px a desktop, tabs preservam o
+resultado, teclado tem foco visível e tabelas rolam dentro do painel.
+
+Manifest e ícones preparam instalação PWA em navegadores compatíveis. Sem service
+worker de dados/API, a aplicação não oferece análises offline nem reutiliza
+cotação arquivada como atual. Replay é configuração explícita de servidor,
+identificada com corte histórico. Falha Binance não ativa exemplos ou simulação.

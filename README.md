@@ -6,7 +6,10 @@ condicionais. A Task 03 acrescenta datasets históricos, features causais, model
 probabilísticos e avaliação temporal fora da amostra. O experimento real BTCUSDT
 **não sustentou uma previsão validada**: os campos públicos de probabilidade e
 magnitude permanecem `null`, com motivos explícitos e diagnósticos experimentais.
-Não há execução de ordens, credenciais privadas ou interface gráfica definitiva.
+Não há execução de ordens ou credenciais privadas. A Task 05 integra o motor a uma
+aplicação web responsiva, com gráficos financeiros, estrutura, Wyckoff, cenários,
+previsões e transparência estatística. O navegador apresenta o resultado do backend;
+não reimplementa modelos nem treina a cada consulta.
 
 Licença MIT. O repositório permanece privado conforme a criação solicitada; a licença
 permite distribuição open source quando o proprietário decidir publicá-lo.
@@ -40,6 +43,47 @@ sintéticos explicitamente identificados e transporte simulado. Eles verificam o
 software; não demonstram desempenho preditivo real. `jsonschema` está no extra `dev`.
 
 ## Uso
+
+### Aplicação web — Task 05
+
+Python 3.11+, Node.js 22 ou 24 e npm. Instale o adaptador web e compile o frontend:
+
+```bash
+python -m pip install -e '.[web]'
+cd frontend
+npm ci
+npm run build
+cd ..
+bash scripts/start-web.sh
+```
+
+Abra **http://127.0.0.1:8000** e informe um símbolo, como `BTCUSDT`. O servidor padrão
+consulta dados públicos atuais da Binance spot. Sem modelo previamente configurado,
+o diagnóstico continua disponível e as previsões retornam indisponibilidade explícita.
+Documentação da API: **http://127.0.0.1:8000/docs**.
+
+Para visualizar a captura real histórica e o modelo experimental da Task 03:
+
+```bash
+bash scripts/start-web-example.sh
+```
+
+Esse comando inicia um **replay explicitamente configurado**, identificado na interface;
+não consulta a cotação atual e só atende ao símbolo da captura. As probabilidades
+públicas permanecem `null` quando os gates científicos não são satisfeitos.
+
+O dashboard oferece Visão geral, Gráfico, Estrutura, Wyckoff, Previsões e Auditoria,
+com H1/H4/D1, overlays causais, métricas OOS e exportação JSON. Futuros e W1 não são
+suportados pelo motor atual. O manifest prepara uso como PWA; não há cache offline
+de consultas nem resultados sintéticos de fallback.
+
+Configuração, modo de desenvolvimento, acesso pelo Android e deploy:
+[`docs/WEB.md`](docs/WEB.md). Inspeção inicial: [`AUDIT_TASK05.md`](AUDIT_TASK05.md).
+Relatório e screenshots: [`TASK05_REPORT.md`](TASK05_REPORT.md).
+A Task 04 separada não foi localizada no repositório auditado; a integração não
+pressupõe sua implementação ou uma validação estatística adicional.
+
+### Linha de comando
 
 ```bash
 market-intelligence analyze BTCUSDT --snapshot btc-snapshot.json --output btc-analysis.json
@@ -242,7 +286,8 @@ de regras. Smart Money completo, fluxo e backtesting de estratégias continuam c
 extensões futuras. O pipeline probabilístico está implementado para pesquisa, com
 critérios de abstinência; validação robusta para uso operacional continua pendente.
 
-Não há GUI, infraestrutura de negociação, chave de API ou backtest de estratégia.
+Há interface web integrada; não há infraestrutura de negociação, chave de API ou
+backtest de estratégia.
 O exemplo inclui modelo treinado e avaliação probabilística, sem vantagem estatística
 declarada. Uma amostra de um único ativo/corretora não estabelece desempenho geral
 nem resultado financeiro de uma estratégia.
